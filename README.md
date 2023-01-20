@@ -7,8 +7,11 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 ### Tech Stack , UI Framework & Admin Template
 
 > PHP v8.2.1
+
 > JavaScript
+
 > Bootstrap 5
+
 > Stisla Admin Template
 
 #### Plugin JS
