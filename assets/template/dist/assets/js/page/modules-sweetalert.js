@@ -20,7 +20,7 @@ $("#swal-5").click(function() {
 	swal('Good Job', 'You clicked the button!', 'error');
 });
 
-$("#swal-6").click(function() {
+$("#hapus").click(function() {
   swal({
       title: 'Are you sure?',
       text: 'Once deleted, you will not be able to recover this imaginary file!',
@@ -60,3 +60,25 @@ $("#swal-8").click(function() {
     timer: 3000,
   });
 });
+
+
+$(document).on('click', '#hapus', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+          title: 'Yakin Mau Dihapus?',
+          text: "Kamu Tidak Dapat Mengambalikan Data yang dihapus!",
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            document.location.href = href
+            swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          }
+        })
+      });

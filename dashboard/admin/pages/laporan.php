@@ -46,7 +46,7 @@
               if (isset($_POST['filterLap'])) {
                 $start = $_POST['start'];
                 $end   = $_POST['end'];
-                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
+                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan,tb_tanggapan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
               } else {
                 $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
               }
@@ -78,7 +78,7 @@
                     <?php if ($dl['status'] !== 'a') : ?>
                       <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
 
-                      <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                      <a href="hapus.php?hp=<?= $dl['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
                   </td>
                 <?php endif ?>
                 </tr>
@@ -107,7 +107,7 @@
         </form>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive" id="buton">
           <table class="table table-bordered table-striped" id="table-2">
             <thead>
               <th>#</th>
@@ -136,7 +136,7 @@
                   <td><?= $t['tgl_tanggapan'] ?></td>
                   <td><?= $t['isi_laporan'] ?></td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                    <a href="hapus.php?ht=<?= $t['id_t'] ?>&idp=<?= $t['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
                   </td>
                 </tr>
               <?php endforeach; ?>

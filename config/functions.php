@@ -131,14 +131,13 @@ function tanggapi($data)
   $idt = substr(randNumb(), 4);
   $idp = $data['idp'];
   $uid = $data['uid'];
-  $tgl = date("d-m-Y");
   $isi = ucwords(stripslashes($data['tanggapan']));
 
   // query insert tanggapan
-  $query = "INSERT INTO tb_tanggapan VALUES($idt,$idp,'$tgl','$isi',$uid)";
+  $query = "INSERT INTO tb_tanggapan VALUES($idt,$idp, CURDATE(),'$isi',$uid)";
   mysqli_query($conn, $query);
 
   //JIka sudah insert ubah status tanggapan menjadi a
-  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'a' ");
+  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'a' WHERE id_p = $idp ");
   return mysqli_affected_rows($conn);
 }
