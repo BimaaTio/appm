@@ -1,23 +1,18 @@
 <?php
 require '../../config/functions.php';
-$idp = $_GET['idp'];
-
+// Hapus Pengaduan
 if (isset($_GET['hp'])) {
   mysqli_query($conn, "DELETE FROM tb_pengaduan WHERE id_p = '" . $_GET['hp'] . "' ");
-  echo "
+  echo
+  "
   <script>
       document.location.href = 'index.php?hal=laporan&oke=1&msg=Berhasil Dihapus';
   </script>
   ";
-} else {
-  echo "
-  <script>
-      document.location.href = 'index.php?hal=laporan&ops=0&msg=Gagal Dihapus';
-  </script>
-  ";
 }
-
+// Hapus Tanggapan dan jika berhasil ubah status pengaduan menjadi pending lagi berdasarkan id yang didapatkan dari parameter $_GET['ht'] & $_GET['idp']
 if (isset($_GET['ht']) && isset($_GET['idp'])) {
+  $idp = $_GET['idp'];
   mysqli_query($conn, "DELETE FROM tb_tanggapan WHERE id_t = '" . $_GET['ht'] . "' ");
   mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'p' WHERE id_p = $idp");
   echo "
@@ -25,11 +20,15 @@ if (isset($_GET['ht']) && isset($_GET['idp'])) {
       document.location.href = 'index.php?hal=laporan&oke=1&msg=Berhasil Dihapus';
   </script>
   ";
-} else {
+}
 
+// Hapus User 
+if (isset($_GET['user'])) {
+  $id = $_GET['user'];
+  mysqli_query($conn, "DELETE FROM tb_user WHERE uid = $id");
   echo "
   <script>
-      document.location.href = 'index.php?hal=laporan&ops=0&msg=Gagal Dihapus';
+      document.location.href = 'index.php?hal=petugas&oke=1&msg=Berhasil Dihapus';
   </script>
   ";
 }

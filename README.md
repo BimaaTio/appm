@@ -12,7 +12,7 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 > JavaScript
 
-> Bootstrap 5
+> Bootstrap 4
 
 > Stisla Admin Template
 
@@ -20,6 +20,8 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 - jQuery
 - DataTables
+- SummerNote
+- SweetAlert
 - dll
 
 ## Fitur

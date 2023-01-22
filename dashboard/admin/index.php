@@ -19,6 +19,10 @@ $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id
 $rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
 // Baris laporan dg status Accept
 $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
+// Akun masyarakat yang terdaftar
+$rowMas  = numRows("SELECT * FROM tb_masyarakat");
+// Akun petugas Terdaftar
+$rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -233,8 +237,69 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
       </div>
     </div>
   </div>
-  <!-- proses penambahan tangapan -->
+  <!-- Modal Tambah Akun Petugas -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="petugas">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Buat Akun Petugas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" class="justify-content-center">
+            <div class="form-group">
+              <label for="nama">Nama Lengkap</label>
+              <input id="nama" type="text" class="form-control" name="nama">
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="uname">Username</label>
+              <input id="uname" type="text" class="form-control" name="uname" maxlength="18">
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="telp">Telp</label>
+              <input id="telp" type="tel" class="form-control" name="telp" maxlength="14">
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="password" class="d-block">Password</label>
+                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="pass" maxlength="16">
+                <div id="pwindicator" class="pwindicator">
+                  <div class="bar"></div>
+                  <div class="label"></div>
+                </div>
+              </div>
+              <div class="form-group col-6">
+                <label for="password2" class="d-block">Konfirmasi Password</label>
+                <input id="password2" type="password" class="form-control" name="pass2" maxlength="16">
+              </div>
+              <div class="form-group col-6">
+                <label>Level</label>
+                <select class="form-control selectric" name="level">
+                  <option value="a">Admin</option>
+                  <option value="p">Petugas</option>
+                </select>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="regis" class="btn btn-primary">Tanggapi</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- proses penambahan data -->
   <?php
+  // data tanggapan
   if (isset($_POST['submit']))
     if (tanggapi($_POST) > 0) {
       echo
@@ -247,6 +312,19 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
       <script>document.location.href='?hal=laporan&info=gagal'</script>
       ";
     }
+
+  // tambah user / registrasi user
+  if (isset($_POST['regis'])) {
+    if (regUser($_POST) > 0) {
+      "
+      <script>document.location.href='?hal=petugas&info=berhasil'</script>
+      ";
+    } else {
+      "
+      <script>document.location.href='?hal=petugas&info=gagal'</script>
+      ";
+    }
+  }
   ?>
 
   <!-- General JS Scripts -->
