@@ -17,11 +17,11 @@
   <div class="col-12">
     <h5 class="mb-2">Laporan Pengaduan</h5>
     <div class="card">
-      <div class="card-header">
-      </div>
+      <!-- <div class="card-header">
+      </div> -->
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-striped" id="table-1">
+          <table class="table table-bordered table-striped" id="table-1">
             <thead>
               <tr>
                 <th class="text-center">
@@ -64,7 +64,54 @@
                     <?php endif; ?>
                   </td>
                   <td>
-                    <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
+                    <?php if ($dl['status'] !== 'a') : ?>
+                      <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
+
+                      <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                  </td>
+                <?php endif ?>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Table Laporan yanf sudah ditanggapi -->
+
+<div class="row mt-5">
+  <div class="col-12">
+    <h5 class="mb-2">Laporan Yang Sudah Ditanggapi</h5>
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped" id="table-2">
+            <thead>
+              <th>#</th>
+              <th>Nama Petugas</th>
+              <th>Judul Pengaduan</th>
+              <th>Tgl Tanggapan</th>
+              <th>Isi Tanggapan</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <?php
+              $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid");
+              $n = 1;
+              foreach ($tanggapan as $t) :
+              ?>
+                <tr <?= $t['id_t'] ?>>
+                  <td><?= $n++ ?></td>
+                  <td><?= $t['nama'] ?></td>
+                  <td><?= $t['judul_pengaduan'] ?></td>
+                  <td><?= $t['tgl_tanggapan'] ?></td>
+                  <td><?= $t['isi_laporan'] ?></td>
+                  <td>
                     <a href="#" class="btn btn-sm btn-danger">Hapus</a>
                   </td>
                 </tr>

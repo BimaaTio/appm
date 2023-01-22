@@ -6,13 +6,17 @@
  */
 
 $(document).ready(function(){
-  $('#table-1').dataTable();
+  $('#table-1').DataTable();
+  $('#table-2').DataTable({
+    "buttons": ["copy", "csv", "excel", "pdf", "print"]
+  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   $('#summernote').summernote();
   $(document).on('click', 'a[data-role=ta]', function() {
         var id = $(this).data('id');
         var judul = $('#'+id).children('td[data-target=judul]').text();
         var pengadu = $('#'+id).children('td[data-target=pengadu]').text();
 
+        $('#id_p').val(id)
         $('#judulLap').val(judul);
         $('#pengadu').val(pengadu);
         $('#tanggapi').modal('toggle');

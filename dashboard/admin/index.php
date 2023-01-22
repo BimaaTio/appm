@@ -6,9 +6,11 @@ if (!isset($_SESSION['logAdmin'])) {
   exit;
 }
 $uid = $_SESSION['uid'];
-$title = $_GET['hal'];
-if (empty($title)) {
-  $title = 'Dashboard';
+$judul = $_GET['hal'];
+$active = $_GET['hal'];
+$t1 = '';
+if (empty($judul)) {
+  $judul = 'Dashboard';
 }
 $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 // Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
@@ -24,7 +26,7 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>APPM &mdash; <?= ucwords($title) ?></title>
+  <title>APPM &mdash; <?= ucwords($judul) ?></title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -96,24 +98,75 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown active">
-              <a href="?hal=" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i> <span>Data</span></a>
+            <?php if ($active == '') : ?>
+              <li class="dropdown active">
+                <a href="?hal=" class="nav-link active"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+              </li>
+            <?php else : ?>
+              <li class="dropdown">
+                <a href="?hal=" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+              </li>
+            <?php endif; ?>
+
+
+
+            <?php if ($judul === 'laporan' or 'masyarakat' or 'petugas') : ?>
+              <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i> <span>Data</span></a>
+                <ul class="dropdown-menu">
+                  <?php if ($judul == 'laporan') : ?>
+                    <li class="active"><a class="nav-link " href="?hal=laporan">Data Laporan</a></li>
+                  <?php else : ?>
+                    <li><a class="nav-link" href="?hal=laporan">Data Laporan</a></li>
+                  <?php endif; ?>
+                  <?php if ($judul == 'masyarakat') : ?>
+                    <li class="active"><a class="nav-link " href="?hal=masyarakat">Data Akun Masyarakat</a></li>
+                  <?php else : ?>
+                    <li><a class="nav-link" href="?hal=masyarakat">Data Akun Masyarakat</a></li>
+                  <?php endif; ?>
+                  <?php if ($judul == 'petugas') : ?>
+                    <li class="active"><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
+                  <?php else : ?>
+                    <li><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
+                  <?php endif; ?>
+                </ul>
+              </li>
+
+
+            <?php else : ?>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="?hal=laporan">Data Laporan</a></li>
                 <li><a class="nav-link" href="?hal=masyarakat">Data Akun Masyarakat</a></li>
                 <li><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
               </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
-              <ul class="dropdown-menu">
-                <li><a href="?hal=profil">Pengaturan Akun</a></li>
-                <li><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
-              </ul>
-            </li>
+              </li>
+            <?php endif; ?>
+
+            <?php if ($judul == 'profil' || 'setting') : ?>
+              <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+                <ul class="dropdown-menu">
+                  <?php if ($judul == 'profil') : ?>
+                    <li class="active"><a href="?hal=profil">Pengaturan Akun</a></li>
+                  <?php else : ?>
+                    <li><a href="?hal=profil">Pengaturan Akun</a></li>
+                  <?php endif; ?>
+                  <?php if ($judul == 'setting') : ?>
+                    <li class="active"><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
+                  <?php else : ?>
+                    <li><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
+                  <?php endif; ?>
+                </ul>
+              </li>
+            <?php else : ?>
+              <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="?hal=profil">Pengaturan Akun</a></li>
+                  <li><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
+                </ul>
+              </li>
+            <?php endif; ?>
             <!-- <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li> -->
           </ul>
         </aside>
@@ -150,6 +203,8 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
         </div>
         <div class="modal-body">
           <form action="" method="post" class="justify-content-center">
+            <input name="idp" type="hidden" id="id_p">
+            <input name="uid" type="hidden" value="<?= $uid ?>">
             <div class="form-group row mb-4">
               <label class="col-form-label col-2">Judul</label>
               <div class="col-10">
@@ -165,19 +220,34 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
             <div class="form-group row mb-4">
               <label class="col-form-label col-2">Tanggapan</label>
               <div class="col-10">
-                <textarea name="tanggapi" id="summernote" cols="30" rows="10"></textarea>
+                <textarea class="summernote" name="tanggapan" cols="65" rows="15"></textarea>
+
               </div>
             </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="tanggapi" class="btn btn-primary">Tanggapi</button>
+          <button type="submit" name="submit" class="btn btn-primary">Tanggapi</button>
         </div>
         </form>
       </div>
     </div>
   </div>
-
+  <!-- proses penambahan tangapan -->
+  <?php
+  if (isset($_POST['submit']))
+    if (tanggapi($_POST) > 0) {
+      echo
+      "
+      <script>document.location.href='?hal=laporan&info=berhasil'</script>
+      ";
+    } else {
+      echo
+      "
+      <script>document.location.href='?hal=laporan&info=gagal'</script>
+      ";
+    }
+  ?>
 
   <!-- General JS Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>

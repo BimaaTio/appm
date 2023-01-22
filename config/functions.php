@@ -122,3 +122,23 @@ function formatNomor($nomorhp)
   }
   return $nomorhp;
 }
+//=======================================================
+//Function Menanggapi laporan pengaduan
+function tanggapi($data)
+{
+  global $conn;
+
+  $idt = substr(randNumb(), 4);
+  $idp = $data['idp'];
+  $uid = $data['uid'];
+  $tgl = date("d-m-Y H:i:s");
+  $isi = ucwords(stripslashes($data['tanggapan']));
+
+  // query insert tanggapan
+  $query = "INSERT INTO tb_tanggapan VALUES($idt,$idp,'$tgl','$isi',$uid)";
+  mysqli_query($conn, $query);
+
+  //JIka sudah insert ubah status tanggapan menjadi a
+  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'a' ");
+  return mysqli_affected_rows($conn);
+}
