@@ -24,7 +24,7 @@
           $start = $_POST['tglMulai'];
           $end   = $_POST['tglSelesai'];
 
-          $getDataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY) ORDER BY tb_pengaduan.tgl_pengaduan DESC ");
+          $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY) ORDER BY tb_pengaduan.tgl_pengaduan DESC ");
         } else {
           $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m ORDER BY tb_pengaduan.tgl_pengaduan DESC");
         }
@@ -55,7 +55,6 @@
             </thead>
             <tbody>
               <?php $i = 1;
-              $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m ORDER BY tb_pengaduan.tgl_pengaduan DESC");
               foreach ($dataLap as $dl) : ?>
                 <tr class="" id="<?= $dl['id_p'] ?>">
                   <td>
@@ -110,7 +109,7 @@
           <input type="date" name="tglMulai" id="tglMulai" class="form-control mr-3">
           &mdash;
           <input type="date" name="tglSelesai" id="tglSelesai" class="form-control ml-3">
-          <button type="submit" name="tgl" class="btn btn-sm btn-info ml-3">Filter</button>
+          <button type="submit" name="tglTanggap" class="btn btn-sm btn-info ml-3">Filter</button>
         </form>
       </div>
       <div class="card-body">
@@ -126,7 +125,15 @@
             </thead>
             <tbody>
               <?php
-              $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid");
+              if (isset($_POST['tanggap'])) {
+                $mulai = $_POST['tglMulai'];
+                $selesai = $_POST['tglSelesai'];
+                $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid AND tb_tanggapan.tgl_tanggapan BETWEEN '$mulai' AND DATE_ADD('$selesai', INTERVAL 1 DAY) ORDER BY tb_tanggapan.tgl_tanggapan");
+              }
+
+
+
+              $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid ORDER BY tb_tanggapan.tgl_tanggapan");
               $n = 1;
               foreach ($tanggapan as $t) :
               ?>
