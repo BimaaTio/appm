@@ -36,7 +36,7 @@
       </div>
       <div class="card-wrap">
         <div class="card-header">
-          <h4>Total Pengaduan (Accept)</h4>
+          <h4>Total Yang Sudah Ditanggapi</h4>
         </div>
         <div class="card-body">
           <?= $rowLapA ?>

@@ -7,10 +7,12 @@ if (!isset($_SESSION['logAdmin'])) {
 }
 $uid = $_SESSION['uid'];
 $title = $_GET['hal'];
-if(empty($title)){
+if (empty($title)) {
   $title = 'Dashboard';
 }
 $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
+// Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
+$dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
 // Baris laporan dg status Pending
 $rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
 // Baris laporan dg status Accept
@@ -33,13 +35,11 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/jqvmap/dist/jqvmap.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/summernote/summernote-bs4.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet"
-    href="../../assets/template/dist/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="../../assets/template/dist/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/datatables/datatables.min.css">
-  <link rel="stylesheet"
-    href="../../assets/template/dist/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet"
-    href="../../assets/template/dist/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../assets/template/dist/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../assets/template/dist/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../assets/template/dist/assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/css/style.css">
@@ -70,10 +70,8 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="../../assets/template/dist/assets/img/avatar/avatar-1.png"
-                class="rounded-circle mr-1">
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <img alt="image" src="../../assets/template/dist/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
               <div class="d-sm-none d-lg-inline-block">Hi,<?= $data['nama'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -124,15 +122,14 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          <?php 
+          <?php
           include 'config.php';
           ?>
         </section>
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2023 <div class="bullet"></div> Develop by <a
-            href="https://instagram.com/bimatio_">Bimatio_</a>
+          Copyright &copy; 2023 <div class="bullet"></div> Develop by <a href="https://instagram.com/bimatio_">Bimatio_</a>
         </div>
         <div class="footer-right">
           <b>Powered by</b> <u>STISLA</u>
@@ -141,14 +138,56 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
     </div>
   </div>
 
+  <!-- Modal Tanggapi -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="tanggapi">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tanggapi Masalah</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" class="justify-content-center">
+            <div class="form-group row mb-4">
+              <label class="col-form-label col-2">Judul</label>
+              <div class="col-10">
+                <input id="judulLap" type="text" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label col-2">Nama Pengadu</label>
+              <div class="col-10">
+                <input id="pengadu" type="text" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label col-2">Tanggapan</label>
+              <div class="col-10">
+                <textarea name="tanggapi" id="summernote" cols="30" rows="10"></textarea>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="tanggapi" class="btn btn-primary">Tanggapi</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
   <!-- General JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
   <script src="../../assets/template/dist/assets/modules/jquery.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/popper.js"></script>
   <script src="../../assets/template/dist/assets/modules/tooltip.js"></script>
   <script src="../../assets/template/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/moment.min.js"></script>
-  <script src="assets/js/stisla.js"></script>
+  <script src="../../assets/template/dist/assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
   <script src="../../assets/template/dist/assets/modules/jquery.sparkline.min.js"></script>
@@ -161,9 +200,11 @@ $rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
   </script>
   <script src="../../assets/template/dist/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/jquery-ui/jquery-ui.min.js"></script>
+  <script src="../../assets/template/dist/assets/modules/prism/prism.js"></script>
 
   <!-- Page Specific JS File -->
   <script src="../../assets/template/dist/assets/js/page/index.js"></script>
+  <script src="../../assets/template/dist/assets/js/page/bootstrap-modal.js"></script>
 
   <!-- Template JS File -->
   <script src="../../assets/template/dist/assets/js/scripts.js"></script>

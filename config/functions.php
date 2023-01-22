@@ -2,7 +2,10 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 //Base URL
-define('URL', 'http://localhost:8080/appm/');
+define(
+  'URL',
+  'http://localhost/appm/'
+);
 //============================================
 //Koneksi
 $host   = 'localhost';

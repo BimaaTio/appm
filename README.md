@@ -8,6 +8,8 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 > PHP v8.2.1
 
+> MySQL
+
 > JavaScript
 
 > Bootstrap 5
