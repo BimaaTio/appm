@@ -17,8 +17,25 @@
   <div class="col-12">
     <h5 class="mb-2">Laporan Pengaduan</h5>
     <div class="card">
-      <!-- <div class="card-header">
-      </div> -->
+      <div class="card-header">
+        <!-- proses filter berdasarkan Tanggal -->
+        <?php
+        if (isset($_POST['filterTgl'])) {
+          $start = $_POST['tglMulai'];
+          $end   = $_POST['tglSelesai'];
+
+          $getDataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY) ORDER BY tb_pengaduan.tgl_pengaduan DESC ");
+        } else {
+          $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m ORDER BY tb_pengaduan.tgl_pengaduan DESC");
+        }
+        ?>
+        <form action="" method="post" class="form-inline">
+          <input type="date" name="tglMulai" id="tglMulai" class="form-control mr-3">
+          &mdash;
+          <input type="date" name="tglSelesai" id="tglSelesai" class="form-control ml-3">
+          <button type="submit" name="filterTgl" class="btn btn-sm btn-info ml-3">Filter</button>
+        </form>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered table-striped" id="table-1">
@@ -38,7 +55,7 @@
             </thead>
             <tbody>
               <?php $i = 1;
-              $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
+              $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m ORDER BY tb_pengaduan.tgl_pengaduan DESC");
               foreach ($dataLap as $dl) : ?>
                 <tr class="" id="<?= $dl['id_p'] ?>">
                   <td>
@@ -88,6 +105,14 @@
   <div class="col-12">
     <h5 class="mb-2">Laporan Yang Sudah Ditanggapi</h5>
     <div class="card">
+      <div class="card-header">
+        <form action="" method="post" class="form-inline">
+          <input type="date" name="tglMulai" id="tglMulai" class="form-control mr-3">
+          &mdash;
+          <input type="date" name="tglSelesai" id="tglSelesai" class="form-control ml-3">
+          <button type="submit" name="tgl" class="btn btn-sm btn-info ml-3">Filter</button>
+        </form>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered table-striped" id="table-2">
