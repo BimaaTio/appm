@@ -17,8 +17,13 @@
   <div class="col-12">
     <h5 class="mb-2">Laporan Pengaduan</h5>
     <div class="card">
-      <!-- <div class="card-header">
-      </div> -->
+      <div class="card-header">
+        <form action="" method="post" class="form-inline">
+          <input type="date" name="start" class="mr-2 form-control">
+          <input type="date" name="end" class="ml-2 form-control">
+          <button type="submit" name="filterLap" class="btn btn-info ml-3">Filter</button>
+        </form>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered table-striped" id="table-1">
@@ -38,7 +43,13 @@
             </thead>
             <tbody>
               <?php $i = 1;
-              $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
+              if (isset($_POST['filterLap'])) {
+                $start = $_POST['start'];
+                $end   = $_POST['end'];
+                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
+              } else {
+                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
+              }
               foreach ($dataLap as $dl) : ?>
                 <tr class="" id="<?= $dl['id_p'] ?>">
                   <td>
@@ -88,6 +99,13 @@
   <div class="col-12">
     <h5 class="mb-2">Laporan Yang Sudah Ditanggapi</h5>
     <div class="card">
+      <div class="card-header">
+        <form action="" method="post" class="form-inline">
+          <input type="date" name="start" class="mr-2 form-control">
+          <input type="date" name="end" class="ml-2 form-control">
+          <button type="submit" name="filterTang" class="btn btn-info ml-3">Filter</button>
+        </form>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered table-striped" id="table-2">
@@ -101,7 +119,13 @@
             </thead>
             <tbody>
               <?php
-              $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid");
+              if (isset($_POST['filterTang'])) {
+                $start = $_POST['start'];
+                $end   = $_POST['end'];
+                $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid AND tb_tanggapan.tgl_tanggapan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
+              } else {
+                $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid");
+              }
               $n = 1;
               foreach ($tanggapan as $t) :
               ?>

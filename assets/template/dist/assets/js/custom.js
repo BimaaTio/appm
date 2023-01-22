@@ -7,9 +7,7 @@
 
 $(document).ready(function(){
   $('#table-1').DataTable();
-  $('#table-2').DataTable({
-    "buttons": ["copy", "csv", "excel", "pdf", "print"]
-  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  $('#table-2').DataTable();
   $('#summernote').summernote();
   $(document).on('click', 'a[data-role=ta]', function() {
         var id = $(this).data('id');

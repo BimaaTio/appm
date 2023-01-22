@@ -131,7 +131,7 @@ function tanggapi($data)
   $idt = substr(randNumb(), 4);
   $idp = $data['idp'];
   $uid = $data['uid'];
-  $tgl = date("d-m-Y H:i:s");
+  $tgl = date("d-m-Y");
   $isi = ucwords(stripslashes($data['tanggapan']));
 
   // query insert tanggapan
