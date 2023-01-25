@@ -165,6 +165,21 @@ function formatNomor($nomorhp)
   return $nomorhp;
 }
 //=======================================================
+function lapor($data)
+{
+  global $conn;
+  $idp = substr(randNumb(), 4);
+  $idm = $data['idm'];
+  $judul = ucwords(htmlspecialchars($data['judul']));
+  $isi = ucwords(htmlspecialchars($data['isi']));
+  $foto = foto();
+  $status = 'p';
+
+  // query insert ke database
+  mysqli_query($conn, "INSERT INTO tb_pengaduan VALUES($idp,$idm,CURDATE(),'$judul','$isi','$foto','$status')");
+  return mysqli_affected_rows($conn);
+}
+//=======================================================
 //Function Menanggapi laporan pengaduan
 function tanggapi($data)
 {
@@ -182,4 +197,58 @@ function tanggapi($data)
   //JIka sudah insert ubah status tanggapan menjadi a
   mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'a' WHERE id_p = $idp ");
   return mysqli_affected_rows($conn);
+}
+//========================================================
+//Upload Foto
+function foto()
+{
+
+  $namaFile = $_FILES['foto']['name'];
+  $ukuranFile = $_FILES['foto']['size'];
+  $error = $_FILES['foto']['error'];
+  $tmpName = $_FILES['foto']['tmp_name'];
+  //Cek gambar 
+
+  if (
+    $error === 4
+  ) {
+    echo "<script>
+                alert('Pilih gambar terlebih dahulu')
+              </script>";
+    return false;
+  }
+
+  // file type
+  $ekstensiGambarValid = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+  $formatFile = explode('.', $namaFile);
+  $formatFile = strtolower(end($formatFile));
+
+  if (!in_array($formatFile, $ekstensiGambarValid)) {
+    echo "<script>
+                alert('Format File tidak sesuai')
+              </script>";
+    return false;
+  }
+
+  // cek size
+
+  if ($ukuranFile > 3000000) {
+    echo "<script>
+                alert('File size Max 3MB')
+              </script>";
+    return false;
+  }
+
+
+  // lolos cek
+  // generate nama gambar
+
+  $namaBaru = 'laporan' . substr(randNumb(), 3);
+  $namaBaru .= '.';
+  $namaBaru .= $formatFile;
+
+
+  move_uploaded_file($tmpName, '../../assets/img/foto/' . $namaBaru);
+
+  return $namaBaru;
 }

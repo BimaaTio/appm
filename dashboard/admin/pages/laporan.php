@@ -135,7 +135,7 @@
                   <td><?= $t['nama'] ?></td>
                   <td><?= $t['judul_pengaduan'] ?></td>
                   <td><?= $t['tgl_tanggapan'] ?></td>
-                  <td><?= $t['isi_laporan'] ?></td>
+                  <td><?= $t['tanggapan'] ?></td>
                   <td>
                     <a href="hapus.php?ht=<?= $t['id_t'] ?>&idp=<?= $t['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
                   </td>
