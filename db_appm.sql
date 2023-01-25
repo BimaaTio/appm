@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jan 2023 pada 07.55
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.2
+-- Generation Time: Jan 25, 2023 at 12:23 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_masyarakat`
+-- Table structure for table `tb_masyarakat`
 --
 
 CREATE TABLE `tb_masyarakat` (
@@ -34,26 +34,28 @@ CREATE TABLE `tb_masyarakat` (
   `uname` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
   `telp` varchar(15) NOT NULL,
-  `created_at` varchar(30) NOT NULL
+  `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_masyarakat`
+-- Dumping data for table `tb_masyarakat`
 --
 
 INSERT INTO `tb_masyarakat` (`id_m`, `nik`, `nama`, `uname`, `password`, `telp`, `created_at`) VALUES
-(1, '234345342346653', 'Bimatio', 'bim', '123', '435345435546', '');
+(41615, '234322342235443', 'Raka Prihantoro', 'raka', '$2y$10$VsnbX.1/BJTzNTtAOzNBh.LZBxbxmvjGcWCCWePZFAkBTr/T26wcq', '+6285172343233', '2023-01-25'),
+(55433, '234322342235443', 'Arief Prasetyo', 'arep', '$2y$10$8QtDOy6ZllAUWOxr9KF1n.UWiIdEMZZN6LFPTzUi1fRzvU7xQihUy', '+62883243235434', '2023-01-25'),
+(90306, '1234324345332', 'Zaenal Arifien', 'ipen', '$2y$10$nKA2fyfBYLAaSF8rqsMPveu3a3SAgnJOGP6BHtns24IH65HG.dPVi', '+62883243235434', '2023-01-25');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_pengaduan`
+-- Table structure for table `tb_pengaduan`
 --
 
 CREATE TABLE `tb_pengaduan` (
   `id_p` int(11) NOT NULL,
   `id_m` int(11) NOT NULL,
-  `tgl_pengaduan` varchar(30) NOT NULL,
+  `tgl_pengaduan` date NOT NULL,
   `judul_pengaduan` varchar(50) NOT NULL,
   `isi_laporan` text NOT NULL,
   `foto` varchar(100) NOT NULL,
@@ -61,22 +63,23 @@ CREATE TABLE `tb_pengaduan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_pengaduan`
+-- Dumping data for table `tb_pengaduan`
 --
 
 INSERT INTO `tb_pengaduan` (`id_p`, `id_m`, `tgl_pengaduan`, `judul_pengaduan`, `isi_laporan`, `foto`, `status`) VALUES
-(34523, 1, '01-20-2023', 'Jalan Berlubang', 'Jalan xyz berlubang mohon segera perbaiki', 'pengaduan.jpg', 'p');
+(23414, 41615, '2023-01-21', 'terst', 'asdsdffgfdgfdgfd', 'ja.obs', 'p'),
+(32564, 41615, '2023-01-23', 'Test Date', 'TEST CURDATE', 'cd.jpg', 'p');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_tanggapan`
+-- Table structure for table `tb_tanggapan`
 --
 
 CREATE TABLE `tb_tanggapan` (
   `id_t` int(11) NOT NULL,
   `id_p` int(11) NOT NULL,
-  `tgl_tanggapan` varchar(35) NOT NULL,
+  `tgl_tanggapan` date NOT NULL,
   `tanggapan` text NOT NULL,
   `uid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -84,7 +87,7 @@ CREATE TABLE `tb_tanggapan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -98,38 +101,37 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
 INSERT INTO `tb_user` (`uid`, `nama`, `uname`, `password`, `telp`, `level`, `created_at`) VALUES
-(28537, 'Bima Tio Rachman', 'Adm', '$2y$10$Y/QZTn4CdfaN0GgvWXQoaOQdCLCTjcgcktbD18Akb8q1KTKLUBE.u', '+6281234', 'a', '20-01-2023 10:16:25'),
-(41615, 'Zaenal Arifien', 'Ipen', '$2y$10$ViAGPsyNAOwBSgab4GUPl.m2efd9pj7Xayw9Cfz6XFgg/63jMBwMK', '+62324324324', 'p', '20-01-2023 11:26:55'),
-(58188, 'Bima Tio Rachman', 'Admin', '$2y$10$jY1Pa92ScjCkJfAPNjIcUOVGgl5l.wAvWMdKk1BZ6CWCdNK34gvqW', '+6288802791267', 'a', '20-01-2023 09:41:07');
+(9120, 'Bima Tio Rachman', 'Petugas', '$2y$10$BpVy62Ma/IoZpscN8BCkGuPCe9pA7pYDAfC.Zl4pTQVyKyHfs43TS', '+62883243235434', 'p', '25-01-2023 16:51:19'),
+(58188, 'Bima Tio Rachman', 'Admin', '$2y$10$jY1Pa92ScjCkJfAPNjIcUOVGgl5l.wAvWMdKk1BZ6CWCdNK34gvqW', '+6288802791267', 'a', '2023-01-23');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `tb_masyarakat`
+-- Indexes for table `tb_masyarakat`
 --
 ALTER TABLE `tb_masyarakat`
   ADD PRIMARY KEY (`id_m`);
 
 --
--- Indeks untuk tabel `tb_pengaduan`
+-- Indexes for table `tb_pengaduan`
 --
 ALTER TABLE `tb_pengaduan`
   ADD PRIMARY KEY (`id_p`);
 
 --
--- Indeks untuk tabel `tb_tanggapan`
+-- Indexes for table `tb_tanggapan`
 --
 ALTER TABLE `tb_tanggapan`
   ADD PRIMARY KEY (`id_t`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`uid`);
