@@ -60,7 +60,7 @@ function regUser($data) {
 
   $uid   = substr(randNumb(), 4);
   $nama  = ucwords(htmlspecialchars(stripslashes($data['nama'])));
-  $uname = ucwords(htmlspecialchars(stripslashes($data['uname'])));
+  $uname = htmlspecialchars(stripslashes($data['uname']));
   $pass  = mysqli_real_escape_string($conn, $data['pass']);
   $pass2 = mysqli_real_escape_string($conn, $data['pass2']);
   $telp  = formatNomor($data['telp']);
@@ -95,6 +95,48 @@ function regUser($data) {
   return mysqli_affected_rows($conn);
 }
 //=======================================================
+//Registrasi Akun Masyarakat
+function regMas($data)
+{
+  global $conn;
+  $idm = substr(randNumb(), 4);
+  $nik = htmlspecialchars($data['nik']);
+  $nama = ucwords(htmlspecialchars($data['nama']));
+  $uname = htmlspecialchars($data['uname']);
+  $pass  = mysqli_real_escape_string($conn, $data['pass']);
+  $pass2 = mysqli_real_escape_string($conn, $data['pass2']);
+  $telp  = formatNomor($data['telp']);
+  // $tgl   = date("d-m-Y H:i:s");
+
+  // Pengecekan username sudah ada atau belum
+  $cek   = query("SELECT * FROM tb_masyarakat WHERE uname = '$uname' ");
+  if ($cek) {
+    echo
+    "
+      <script>
+      alert('Username Sudah ada!, Silahkan Gunakan Username lain')
+      </script>
+      ";
+    return false;
+  }
+  // cek jika konfirmasi password tidak sama
+  if ($pass != $pass2) {
+    echo
+    "
+      <script>
+      alert('Password Tidak Sesuai!, Silahkan cek Kembali Passwordnya!')
+      </script>
+      ";
+    return false;
+  }
+  // Encrypt password yang akan dimasukan kedalam database
+  $password = password_hash($pass, PASSWORD_BCRYPT);
+  // query insert / memasukan data yang di input ke database
+  mysqli_query($conn, "INSERT INTO tb_masyarakat VALUES($idm,'$nik','$nama','$uname','$password','$telp', CURDATE())");
+  return mysqli_affected_rows($conn);
+}
+//=======================================================
+
 //Format Number id (+62)
 function formatNomor($nomorhp)
 {

@@ -53,7 +53,7 @@
                   </td>
                   <td><?= $u['created_at'] ?></td>
                   <td>
-                    <a href="hapus.php?user=<?= $u['uid'] ?>" class="btn btn-sm btn-danger shadow-danger">Hapus</a>
+                    <a href="hapus.php?user=<?= $u['uid'] ?>" id="hapus" class="btn btn-sm btn-danger shadow-danger">Hapus</a>
                   </td>
                 </tr>
               <?php endforeach; ?>

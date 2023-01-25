@@ -6,7 +6,9 @@ if(isset($_POST['masuk'])){
   $pass  = $_POST['pass'];
   // cek apakah username yang di input ada / tidak
   $cek   = mysqli_query($conn, "SELECT * FROM tb_user WHERE uname = '$uname' ");
-  // Jika username ada jalankan kode berikut
+  // Cek masyarakat
+  $cekMas = mysqli_query($conn, "SELECT * FROM tb_masyarakat WHERE uname = '$uname'");
+  // Jika username ada jalankan script login untuk user
   if (mysqli_num_rows($cek) === 1) {
     $row = mysqli_fetch_assoc($cek);
     // Cek level jika A (Admin)
@@ -35,14 +37,29 @@ if(isset($_POST['masuk'])){
     // Cek jika button ingat saya diklik set cookie
     if (isset($_POST['remember'])) {
       setcookie('id', $row['uid'], time() + 2500);
-      setcookie('keyR', hash('sha256',
-        $row['uid']
-      ), time() + 2500);
+        setcookie('keyR', hash('sha256', $row['uid']), time() + 2500);
     }
-    header("Location:petugas/?hal=");
+      header("Location:dashboard/petugas/?hal=");
     exit;
     }
   }
+  // Login Masyarakat
+  if (mysqli_num_rows($cekMas) === 1) {
+    $row = mysqli_fetch_assoc($cekMas);
+    if (password_verify($pass, $row['password'])) {
+      // jika password sudah benar set session berikut
+      $_SESSION['logMasyarakat'] = true;
+      $_SESSION['uid'] = $row['id_m'];
+    }
+    // Cek jika button ingat saya diklik set cookie
+    if (isset($_POST['remember'])) {
+      setcookie('id', $row['id_m'], time() + 2500);
+      setcookie('keyR', hash('sha256', $row['id_m']), time() + 2500);
+    }
+    header("Location:dashboard/masyarakat/?hal=");
+    exit;
+  }
+  $error = true;
 }
 ?>
 <!DOCTYPE html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require '../../config/functions.php';
-if (!isset($_SESSION['logAdmin'])) {
+if (!isset($_SESSION['logMasyarakat'])) {
   header("Location:../../login.php?bad=Silahkan Login Dahulu");
   exit;
 }
@@ -12,20 +12,7 @@ $t1 = '';
 if (empty($judul)) {
   $judul = 'Dashboard';
 }
-// data user
-$data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
-// Data masyarakat
-$dataMasyarakat = query("SELECT * FROM tb_masyarakat");
-// Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
-$dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
-// Baris laporan dg status Pending
-$rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
-// Baris laporan dg status Accept
-$rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
-// Akun masyarakat yang terdaftar
-$rowMas  = numRows("SELECT * FROM tb_masyarakat");
-// Akun petugas Terdaftar
-$rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
+$data = query("SELECT * FROM tb_masyarakat WHERE id_m = $uid")[0];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,9 +71,9 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
               <div class="d-sm-none d-lg-inline-block">Hi,<?= $data['nama'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <!-- <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
-              </a>
+              </a> -->
               <div class="dropdown-divider"></div>
               <a href="logout.php" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -114,67 +101,15 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
                 <a href="?hal=" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
             <?php endif; ?>
-
-
-
-            <?php if ($judul === 'laporan' or 'masyarakat' or 'petugas') : ?>
-              <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i> <span>Data</span></a>
-                <ul class="dropdown-menu">
-                  <?php if ($judul == 'laporan') : ?>
-                    <li class="active"><a class="nav-link " href="?hal=laporan">Data Laporan</a></li>
-                  <?php else : ?>
-                    <li><a class="nav-link" href="?hal=laporan">Data Laporan</a></li>
-                  <?php endif; ?>
-                  <?php if ($judul == 'masyarakat') : ?>
-                    <li class="active"><a class="nav-link " href="?hal=masyarakat">Data Akun Masyarakat</a></li>
-                  <?php else : ?>
-                    <li><a class="nav-link" href="?hal=masyarakat">Data Akun Masyarakat</a></li>
-                  <?php endif; ?>
-                  <?php if ($judul == 'petugas') : ?>
-                    <li class="active"><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
-                  <?php else : ?>
-                    <li><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
-                  <?php endif; ?>
-                </ul>
-              </li>
-
-
-            <?php else : ?>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="?hal=laporan">Data Laporan</a></li>
-                <li><a class="nav-link" href="?hal=masyarakat">Data Akun Masyarakat</a></li>
-                <li><a class="nav-link" href="?hal=petugas">Data Akun Petugas</a></li>
-              </ul>
-              </li>
-            <?php endif; ?>
-
-            <?php if ($judul == 'profil' || 'setting') : ?>
-              <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
-                <ul class="dropdown-menu">
-                  <?php if ($judul == 'profil') : ?>
-                    <li class="active"><a href="?hal=profil">Pengaturan Akun</a></li>
-                  <?php else : ?>
-                    <li><a href="?hal=profil">Pengaturan Akun</a></li>
-                  <?php endif; ?>
-                  <?php if ($judul == 'setting') : ?>
-                    <li class="active"><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
-                  <?php else : ?>
-                    <li><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
-                  <?php endif; ?>
-                </ul>
+            <?php if ($active == 'form') : ?>
+              <li class="dropdown active">
+                <a href="?hal=form" class="nav-link active"><i class="fas fa-file"></i><span>Formulir</span></a>
               </li>
             <?php else : ?>
               <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="?hal=profil">Pengaturan Akun</a></li>
-                  <li><a class="nav-link" href="?hal=setting">Pengaturan Website</a></li>
-                </ul>
+                <a href="?hal=form" class="nav-link"><i class="fas fa-file"></i><span>Formulir</span></a>
               </li>
             <?php endif; ?>
-            <!-- <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li> -->
           </ul>
         </aside>
       </div>

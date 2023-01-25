@@ -21,25 +21,3 @@ if (isset($_GET['ht']) && isset($_GET['idp'])) {
   </script>
   ";
 }
-
-// Hapus User 
-if (isset($_GET['user'])) {
-  $id = $_GET['user'];
-  mysqli_query($conn, "DELETE FROM tb_user WHERE uid = $id");
-  echo "
-  <script>
-      document.location.href = 'index.php?hal=petugas&oke=1&msg=Berhasil Dihapus';
-  </script>
-  ";
-}
-
-// Hapus Akun Masyarakat
-if (isset($_GET['mas'])) {
-  $id = $_GET['mas'];
-  mysqli_query($conn, "DELETE FROM tb_masyarakat WHERE id_m = $id");
-  echo "
-  <script>
-      document.location.href = 'index.php?hal=masyarakat&oke=1&msg=Berhasil Dihapus';
-  </script>
-  ";
-}
