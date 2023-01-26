@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Jakarta");
 //Base URL
 define(
   'URL',
-  'http://localhost:8080/appm/'
+  'http://localhost/appm/'
 );
 //============================================
 //Koneksi

@@ -14,17 +14,17 @@
   </div>
 </div>
 <div class="row">
-  <?php 
-  if(isset($_GET['info']) && isset($_GET['msg'])) :?>
-  <?php if($_GET['info'] == 'berhasil') :?>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <?php endif;?>
-  <?php endif;?>
+  <?php
+  if (isset($_GET['info']) && isset($_GET['msg'])) : ?>
+    <?php if ($_GET['info'] == 'berhasil') : ?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
   <div class="col-12">
     <h5 class="mb-2">Laporan Pengaduan</h5>
     <div class="card">
@@ -63,39 +63,37 @@
                 $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
               }
               foreach ($dataLap as $dl) : ?>
-              <tr class="" id="<?= $dl['id_p'] ?>">
-                <td>
-                  <?= $i++ ?>
-                </td>
-                <td data-target="pengadu"><?= $dl['nama'] ?></td>
-                <td data-target="judul">
-                  <?= $dl['judul_pengaduan'] ?>
-                </td>
-                <td>
-                  <?= $dl['isi_laporan'] ?>
-                </td>
-                <td>
-                  <img alt="<?= $dl['foto'] ?>" src="../../assets/img/foto/<?= $dl['foto'] ?>" class="img-thumbnail"
-                    width="150" data-toggle="tooltip" title="<?= $dl['judul_pengaduan'] ?>">
-                </td>
-                <td><?= $dl['tgl_pengaduan'] ?></td>
-                <td>
-                  <?php if ($dl['status'] === 'p') : ?>
-                  <div class="badge badge-warning shadow-warning">Pending</div>
-                  <?php endif; ?>
-                  <?php if ($dl['status'] === 'a') : ?>
-                  <div class="badge badge-success shadow-success">Accept</div>
-                  <?php endif; ?>
-                </td>
-                <td>
-                  <?php if ($dl['status'] !== 'a') : ?>
-                  <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info"
-                    data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
+                <tr class="" id="<?= $dl['id_p'] ?>">
+                  <td>
+                    <?= $i++ ?>
+                  </td>
+                  <td data-target="pengadu"><?= $dl['nama'] ?></td>
+                  <td data-target="judul">
+                    <?= $dl['judul_pengaduan'] ?>
+                  </td>
+                  <td>
+                    <?= $dl['isi_laporan'] ?>
+                  </td>
+                  <td>
+                    <img alt="<?= $dl['foto'] ?>" src="../../assets/img/foto/<?= $dl['foto'] ?>" class="img-thumbnail" width="150" data-toggle="tooltip" title="<?= $dl['judul_pengaduan'] ?>">
+                  </td>
+                  <td><?= $dl['tgl_pengaduan'] ?></td>
+                  <td>
+                    <?php if ($dl['status'] === 'p') : ?>
+                      <div class="badge badge-warning shadow-warning">Pending</div>
+                    <?php endif; ?>
+                    <?php if ($dl['status'] === 'a') : ?>
+                      <div class="badge badge-success shadow-success">Accept</div>
+                    <?php endif; ?>
+                  </td>
+                  <td>
+                    <?php if ($dl['status'] !== 'a') : ?>
+                      <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
 
-                  <a href="hapus.php?hp=<?= $dl['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
-                </td>
+                      <a href="hapus.php?hp=<?= $dl['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
+                  </td>
                 <?php endif ?>
-              </tr>
+                </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
@@ -143,17 +141,16 @@
               $n = 1;
               foreach ($tanggapan as $t) :
               ?>
-              <tr <?= $t['id_t'] ?>>
-                <td><?= $n++ ?></td>
-                <td><?= $t['nama'] ?></td>
-                <td><?= $t['judul_pengaduan'] ?></td>
-                <td><?= $t['tgl_tanggapan'] ?></td>
-                <td><?= $t['isi_laporan'] ?></td>
-                <td>
-                  <a href="hapus.php?ht=<?= $t['id_t'] ?>&idp=<?= $t['id_p'] ?>" id="hapus"
-                    class="btn btn-sm btn-danger">Hapus</a>
-                </td>
-              </tr>
+                <tr <?= $t['id_t'] ?>>
+                  <td><?= $n++ ?></td>
+                  <td><?= $t['nama'] ?></td>
+                  <td><?= $t['judul_pengaduan'] ?></td>
+                  <td><?= $t['tgl_tanggapan'] ?></td>
+                  <td><?= $t['tanggapan'] ?></td>
+                  <td>
+                    <a href="hapus.php?ht=<?= $t['id_t'] ?>&idp=<?= $t['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
+                  </td>
+                </tr>
               <?php endforeach; ?>
             </tbody>
           </table>

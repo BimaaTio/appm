@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'config/functions.php';
-if(isset($_POST['masuk'])){
+if (isset($_POST['masuk'])) {
   $uname = $_POST['uname'];
   $pass  = $_POST['pass'];
   // cek apakah username yang di input ada / tidak
@@ -12,35 +12,38 @@ if(isset($_POST['masuk'])){
   if (mysqli_num_rows($cek) === 1) {
     $row = mysqli_fetch_assoc($cek);
     // Cek level jika A (Admin)
-    if($row['level'] === 'a'){
+    if ($row['level'] === 'a') {
       // melakukan password_verify
-      if(password_verify($pass, $row['password'])){
+      if (password_verify($pass, $row['password'])) {
         // Set Session
         $_SESSION['logAdmin'] = true;
+        $_SESSION['aduan'] = true;
         $_SESSION['uid'] = $row['uid'];
       }
-    // Cek jika button ingat saya diklik set cookie
+      // Cek jika button ingat saya diklik set cookie
       if (isset($_POST['remember'])) {
         setcookie('id', $row['uid'], time() + 2500);
         setcookie('keyA', hash('sha256', $row['uid']), time() + 2500);
       }
       header("Location:dashboard/admin/?hal=");
       exit;
-    // Cek level jika p (Petugas)
-    } if($row['level'] === 'p'){
-    // melakukan password_verify
-    if (password_verify($pass, $row['password'])) {
-      // Set Session
-      $_SESSION['logPetugas'] = true;
-      $_SESSION['uid'] = $row['uid'];
+      // Cek level jika p (Petugas)
     }
-    // Cek jika button ingat saya diklik set cookie
-    if (isset($_POST['remember'])) {
-      setcookie('id', $row['uid'], time() + 2500);
+    if ($row['level'] === 'p') {
+      // melakukan password_verify
+      if (password_verify($pass, $row['password'])) {
+        // Set Session
+        $_SESSION['logPetugas'] = true;
+        $_SESSION['aduan'] = true;
+        $_SESSION['uid'] = $row['uid'];
+      }
+      // Cek jika button ingat saya diklik set cookie
+      if (isset($_POST['remember'])) {
+        setcookie('id', $row['uid'], time() + 2500);
         setcookie('keyR', hash('sha256', $row['uid']), time() + 2500);
-    }
+      }
       header("Location:dashboard/petugas/?hal=");
-    exit;
+      exit;
     }
   }
   // Login Masyarakat
@@ -49,6 +52,7 @@ if(isset($_POST['masuk'])){
     if (password_verify($pass, $row['password'])) {
       // jika password sudah benar set session berikut
       $_SESSION['logMasyarakat'] = true;
+      $_SESSION['aduan'] = true;
       $_SESSION['uid'] = $row['id_m'];
     }
     // Cek jika button ingat saya diklik set cookie
@@ -102,14 +106,37 @@ if(isset($_POST['masuk'])){
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
-              <img src="<?= constant("URL") ?>assets/template/dist/assets/img/stisla-fill.svg" alt="logo" width="100"
-                class="shadow-light rounded-circle">
+              <img src="<?= constant("URL") ?>assets/template/dist/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
-
+            <?php if (isset($error)) : ?>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Oops!</strong> Username / Password salah!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['info'])) : ?>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Hey!</strong> <?= $_GET['info'] ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['bad'])) : ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Oops!</strong> <?= $_GET['bad'] ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
             <div class="card card-primary">
               <div class="card-header">
                 <h4>Login</h4>
               </div>
+
               <div class="card-body">
                 <form method="POST" action="#" class="needs-validation" novalidate="">
                   <div class="form-group">
