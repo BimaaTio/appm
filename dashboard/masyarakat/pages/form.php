@@ -15,6 +15,22 @@
 </div>
 <div class="row">
   <div class="col-12">
+  <?php if(isset($_GET['sip']) == 'berhasil' && isset($_GET['msg']) ) :?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Siip!</strong> <?= $_GET['msg'] ?>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <?php endif;?>
+    <?php if(isset($_GET['bad'])== 'gagal' && isset($_GET['msg'])) :?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Oops!</strong> <?= $_GET['msg'] ?>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <?php endif;?>
     <h5 class="mb-2">Formulir Laporan Pengaduan</h5>
     <div class="card">
       <div class="card-body">
@@ -37,7 +53,7 @@
             <div class="col-sm-12 col-md-7">
               <div id="image-preview" class="image-preview">
                 <label for="image-upload" id="image-label">Pilih Foto</label>
-                <input type="file" name="image" id="image-upload" name="foto">
+                <input type="file" id="image-upload" name="foto">
               </div>
             </div>
           </div>
@@ -60,14 +76,14 @@ if (isset($_POST['lapor'])) {
     echo
     "
     <script>
-        document.location.href = '?hal=form&info=berhasil';
+        document.location.href = '?hal=form&sip=berhasil&msg=Laporan Berhasil dikirim';
     </script>
     ";
   } else {
     echo
     "
     <script>
-        document.location.href = '?hal=form&info=gagal';
+        document.location.href = '?hal=form&bad=gagal&msg=Laporan Gagal dikirim';
     </script>
     ";
   }

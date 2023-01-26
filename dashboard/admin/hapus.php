@@ -2,11 +2,19 @@
 require '../../config/functions.php';
 // Hapus Pengaduan
 if (isset($_GET['hp'])) {
+  $id = $_GET['hp'];
+  $foto = query("SELECT foto FROM tb_pengaduan WHERE id_p = $id ")[0];
+  if(numRows("SELECT foto FROM tb_pengaduan WHERE id_p = $id") > 0){
+    if(file_exists("../../assets/img/foto/".$foto['foto'])){
+      unlink("../../assets/img/foto/".$foto['foto']);
+    }
+  }
+
   mysqli_query($conn, "DELETE FROM tb_pengaduan WHERE id_p = '" . $_GET['hp'] . "' ");
   echo
   "
   <script>
-      document.location.href = 'index.php?hal=laporan&oke=1&msg=Berhasil Dihapus';
+  document.location.href = 'index.php?hal=laporan&sip=1&msg=Berhasil Dihapus'; 
   </script>
   ";
 }
@@ -17,7 +25,7 @@ if (isset($_GET['ht']) && isset($_GET['idp'])) {
   mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'p' WHERE id_p = $idp");
   echo "
   <script>
-      document.location.href = 'index.php?hal=laporan&oke=1&msg=Berhasil Dihapus';
+      document.location.href = 'index.php?hal=laporan&sip=1&msg=Berhasil Dihapus';
   </script>
   ";
 }
@@ -28,7 +36,7 @@ if (isset($_GET['user'])) {
   mysqli_query($conn, "DELETE FROM tb_user WHERE uid = $id");
   echo "
   <script>
-      document.location.href = 'index.php?hal=petugas&oke=1&msg=Berhasil Dihapus';
+      document.location.href = 'index.php?hal=petugas&sip=1&msg=Berhasil Dihapus';
   </script>
   ";
 }
@@ -39,7 +47,7 @@ if (isset($_GET['mas'])) {
   mysqli_query($conn, "DELETE FROM tb_masyarakat WHERE id_m = $id");
   echo "
   <script>
-      document.location.href = 'index.php?hal=masyarakat&oke=1&msg=Berhasil Dihapus';
+      document.location.href = 'index.php?hal=masyarakat&sip=1&msg=Berhasil Dihapus';
   </script>
   ";
 }

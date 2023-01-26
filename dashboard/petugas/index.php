@@ -365,46 +365,12 @@ if (isset($_POST['submit']))
   if (tanggapi($_POST) > 0) {
     echo
     "
-      <script>document.location.href='?hal=laporan&info=berhasil'</script>
+      <script>document.location.href='?hal=laporan&sip=berhasil&msg=Berhasil Menanggapi'</script>
       ";
   } else {
     echo
     "
-      <script>document.location.href='?hal=laporan&info=gagal'</script>
+      <script>document.location.href='?hal=laporan&bad=gagal&msg=Gagal Menanggapi'</script>
       ";
   }
-
-// tambah user / registrasi user
-if (isset($_POST['regis'])) {
-  if (regUser($_POST) > 0) {
-    echo
-    "
-      <script>document.location.href='?hal=petugas&info=berhasil'</script>
-      ";
-  } else {
-    echo
-    "
-      <script>document.location.href='?hal=petugas&info=gagal'</script>
-      ";
-  }
-}
-
-// tambah akun masyarakat / register masyarakat
-if (isset($_POST['regMas'])) {
-  if (regMas($_POST) > 0) {
-    echo
-    "
-    <script>
-        document.location.href = '?hal=masyarakat&info=berhasil';
-    </script>
-    ";
-  } else {
-    echo
-    "
-    <script>
-        document.location.href = '?hal=masyarakat&info=gagal';
-    </script>
-    ";
-  }
-}
 ?>

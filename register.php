@@ -1,7 +1,7 @@
 <?php
 require 'config/functions.php';
 if(isset($_POST['regis'])){
-  if(regUser($_POST) > 0){
+  if(regMas($_POST) > 0){
     header("Location:login.php?info=success");
   } else {
     header("Location:register.php?info=bad");
@@ -62,20 +62,26 @@ if(isset($_POST['regis'])){
               <div class="card-body">
                 <form method="POST">
                   <div class="form-group">
+                    <label for="nama">NIK</label>
+                    <input id="nama" type="number" class="form-control" name="nik" maxlength="18">
+                    <div class="invalid-feedback">
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="nama">Nama Lengkap</label>
-                    <input id="nama" type="text" class="form-control" name="nama">
+                    <input id="nama" type="text" class="form-control" name="nama" maxlength="18">
                     <div class="invalid-feedback">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="uname">Username</label>
-                    <input id="uname" type="text" class="form-control" name="uname">
+                    <input id="uname" type="text" class="form-control" name="uname" maxlength="18">
                     <div class="invalid-feedback">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="telp">Telp</label>
-                    <input id="telp" type="tel" class="form-control" name="telp">
+                    <input id="telp" type="tel" class="form-control" name="telp" maxlength="14">
                     <div class="invalid-feedback">
                     </div>
                   </div>
@@ -83,7 +89,7 @@ if(isset($_POST['regis'])){
                     <div class="form-group col-6">
                       <label for="password" class="d-block">Password</label>
                       <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                        name="pass">
+                        name="pass" maxlength="16">
                       <div id="pwindicator" class="pwindicator">
                         <div class="bar"></div>
                         <div class="label"></div>
@@ -91,17 +97,10 @@ if(isset($_POST['regis'])){
                     </div>
                     <div class="form-group col-6">
                       <label for="password2" class="d-block">Konfirmasi Password</label>
-                      <input id="password2" type="password" class="form-control" name="pass2">
-                    </div>
-                    <div class="form-group col-6">
-                      <label>Level</label>
-                      <select class="form-control selectric" name="level">
-                        <option value="a">Admin</option>
-                        <option value="p">Petugas</option>
-                      </select>
+                      <input id="password2" type="password" class="form-control" name="pass2" maxlength="16">
                     </div>
                   </div>
-                    
+
 
                   <div class="form-group">
                     <button type="submit" name="regis" class="btn btn-primary btn-lg btn-block">
@@ -109,6 +108,9 @@ if(isset($_POST['regis'])){
                     </button>
                   </div>
                 </form>
+                <div class="mt-5 text-muted text-center">
+                  Sudah Punya Akun? <a href="login.php">Login disini!</a>
+                </div>
               </div>
             </div>
             <div class="simple-footer">

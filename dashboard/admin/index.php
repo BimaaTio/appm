@@ -417,12 +417,12 @@ if (isset($_POST['submit']))
   if (tanggapi($_POST) > 0) {
     echo
     "
-      <script>document.location.href='?hal=laporan&info=berhasil'</script>
+      <script>document.location.href='?hal=laporan&sip=berhasil&msg=Berhasil menanggapi'</script>
       ";
   } else {
     echo
     "
-      <script>document.location.href='?hal=laporan&info=gagal'</script>
+      <script>document.location.href='?hal=laporan&bad=gagal&msg=Gagal Menanggapi'</script>
       ";
   }
 
@@ -431,12 +431,12 @@ if (isset($_POST['regis'])) {
   if (regUser($_POST) > 0) {
     echo
     "
-      <script>document.location.href='?hal=petugas&info=berhasil'</script>
+      <script>document.location.href='?hal=petugas&sip=berhasil&msg=Berhasil Menambah User'</script>
       ";
   } else {
     echo
     "
-      <script>document.location.href='?hal=petugas&info=gagal'</script>
+      <script>document.location.href='?hal=petugas&bad=gagal&msg=Gagal Menambah User'</script>
       ";
   }
 }
@@ -447,14 +447,14 @@ if (isset($_POST['regMas'])) {
     echo
     "
     <script>
-        document.location.href = '?hal=masyarakat&info=berhasil';
+        document.location.href = '?hal=masyarakat&sip=berhasil&msg=Berhasil Menambah User';
     </script>
     ";
   } else {
     echo
     "
     <script>
-        document.location.href = '?hal=masyarakat&info=gagal';
+        document.location.href = '?hal=masyarakat&bad=gagal&msg=Gagal Menambah User';
     </script>
     ";
   }

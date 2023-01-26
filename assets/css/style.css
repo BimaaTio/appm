@@ -1,0 +1,20 @@
+.btn-primary, .btn-primary.disabled {
+  box-shadow: 0 2px 6px #acb5f6;
+  background-color: #6777ef;
+  border-color: #6777ef; }
+  .btn-primary:focus, .btn-primary.disabled:focus {
+    background-color: #394eea !important; }
+    .btn-primary:focus:active, .btn-primary.disabled:focus:active {
+      background-color: #394eea !important; }
+  .btn-primary:active, .btn-primary:hover, .btn-primary.disabled:active, .btn-primary.disabled:hover {
+    background-color: #394eea !important; }
+    .hr-text {
+      line-height: 1em;
+      position: relative;
+      outline: 0;
+      border: 0;
+      color: black;
+      text-align: center;
+      height: 1.5em;
+      opacity: .5;
+    }

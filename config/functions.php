@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Jakarta");
 //Base URL
 define(
   'URL',
-  'http://localhost/appm/'
+  'http://localhost:8080/appm/'
 );
 //============================================
 //Koneksi
@@ -173,6 +173,9 @@ function lapor($data)
   $judul = ucwords(htmlspecialchars($data['judul']));
   $isi = ucwords(htmlspecialchars($data['isi']));
   $foto = foto();
+  if(!foto()){
+    return false;
+  }
   $status = 'p';
 
   // query insert ke database
@@ -243,7 +246,7 @@ function foto()
   // lolos cek
   // generate nama gambar
 
-  $namaBaru = 'laporan' . substr(randNumb(), 3);
+  $namaBaru = 'laporan' . substr(randNumb(), 5);
   $namaBaru .= '.';
   $namaBaru .= $formatFile;
 
