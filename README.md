@@ -54,32 +54,32 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 # Dokumentasi Sederhana
 > Landing Page
 
-<img src="assets/dokumentasi/landing.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/landing.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 >Register Page
 
-<img src="assets/dokumentasi/register.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/register.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Login Page 
 
-<img src="assets/dokumentasi/login.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/login.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Dashboard Admin 
 
-<img src="assets/dokumentasi/dashboard-admin.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/dashboard-admin.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Data Laporan
 
-<img src="assets/dokumentasi/data-laporan.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/data-laporan.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Data Akun Masyarakat
 
-<img src="assets/dokumentasi/data-akun-masyarakat.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/data-akun-masyarakat.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Data Akun Petugas
 
-<img src="assets/dokumentasi/data-akun-petugas.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/data-akun-petugas.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
 
 > Form Pengaduan 
 
-<img src="assets/dokumentasi/form-pengaduan.png" alt="Landing Page circle logo" style="height: 450px; width:750px;"/>
+<img src="assets/dokumentasi/form-pengaduan.png" alt="Landing Page circle logo" style="height: 450px; width:800px;"/>
