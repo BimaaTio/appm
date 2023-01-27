@@ -8,7 +8,7 @@ require 'config/functions.php';
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>APPM &mdash; Landings</title>
+  <title>APPM &mdash; Landing</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,9 @@ require 'config/functions.php';
       <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
           <!-- hidden spacer to center brand on mobile --></span>
-        <a class="navbar-brand" href="#"> Aplikasi Pengaduan Pelaporan Masyarakat </a>
+        <a class="navbar-brand" href="#"> 
+          <img src="assets/img/logo.png" alt="Bootstrap" width="58" height="54" class="me-2">
+            Aplikasi Pengaduan Pelaporan Masyarakat </a>
         <div class="w-100 text-right">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
             <span class="navbar-toggler-icon"></span>
@@ -65,7 +67,7 @@ require 'config/functions.php';
       <div class="col-lg-6" data-aos="fade-right">
         <h1 class="display-5 fw-bold lh-1 mb-3 ">Aplikasi Pelaporan Pengaduan</h1>
         <p class="lead  my-4">
-          Ada Masalah? Klik tombol dibawah untuk melaporkan!
+          Suara Anda adalah Perubahan!
         </p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <a href="login.php?info=Silahkan Login dulu untuk melaporkan" class="btn btn-primary btn-lg px-4 me-md-2">Lapor

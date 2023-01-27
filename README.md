@@ -33,6 +33,7 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 - DataTables
 - SummerNote
 - SweetAlert
+- AOS
 - dll
 
 ## Fitur
@@ -51,4 +52,5 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 > End Project : 27/01/2023
 
 # Dokumentasi Sederhana
-<img src="assets/img/logo.png" alt="" srcset="" width="75">
+> Landing Page
+<img src="assets/img/dokumentasi/landing.php" alt="Landing Page circle logo" style="height: 100px; width:100px;"/>

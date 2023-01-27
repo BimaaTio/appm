@@ -106,7 +106,9 @@ if (isset($_POST['masuk'])) {
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
-              <img src="<?= constant("URL") ?>assets/template/dist/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+              <a href="index.php">
+              <img src="assets/img/logo.png" alt="logo" width="100">
+              </a>
             </div>
             <?php if (isset($error)) : ?>
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
