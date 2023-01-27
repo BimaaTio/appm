@@ -52,6 +52,10 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 > End Project : 27/01/2023
 
 # Dokumentasi Sederhana
+>akun admin :
+>username : admin
+>password : 123
+>
 > Landing Page
 
 <img src="assets/dokumentasi/landing-page.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
