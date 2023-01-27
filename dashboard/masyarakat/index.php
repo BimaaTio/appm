@@ -21,7 +21,7 @@ $data = query("SELECT * FROM tb_masyarakat WHERE id_m = $uid")[0];
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>APPM &mdash; <?= ucwords($judul) ?></title>
-
+  <link rel="shortcut icon" href="../../assets/img/logo.png" type="image/x-icon">
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/fontawesome/css/all.min.css">

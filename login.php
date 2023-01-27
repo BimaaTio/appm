@@ -74,6 +74,7 @@ if (isset($_POST['masuk'])) {
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Login &mdash; APPM</title>
 
+  <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= constant("URL") ?>assets/template/dist/assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= constant("URL") ?>assets/template/dist/assets/modules/fontawesome/css/all.min.css">

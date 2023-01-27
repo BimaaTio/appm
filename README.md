@@ -59,7 +59,7 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
  
  password : 123
  
- 
+
 > Landing Page
 
 <img src="assets/dokumentasi/landing-page.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
@@ -85,7 +85,7 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 <img src="assets/dokumentasi/data-akun-masyarakat.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
 > Data Akun Petugas
-
+   
 <img src="assets/dokumentasi/data-akun-petugas.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
 > Form Pengaduan 
