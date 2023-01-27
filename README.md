@@ -53,4 +53,4 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 # Dokumentasi Sederhana
 > Landing Page
-<img src="assets/dokumentasi/landing.png" alt="Landing Page circle logo" style="height: 100px; width:100px;"/>
+<img src="assets/dokumentasi/landing.png" alt="Landing Page circle logo" style="height: 500px; width:500px;"/>
