@@ -48,4 +48,7 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 > Start Project : 20/01/2023
 
-> End Project : -
+> End Project : 27/01/2023
+
+# Dokumentasi Sederhana
+<img src="assets/img/logo.png" alt="" srcset="" width="75">

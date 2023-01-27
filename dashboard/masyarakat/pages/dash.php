@@ -14,6 +14,7 @@
   </div>
 </div>
 <div class="row">
+  <div class="col">
   <div class="card">
     <div class="card-header">
       <h3>Silahkan dibaca!</h3>
@@ -29,5 +30,6 @@
         <li>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
       </ul>
     </div>
+  </div>
   </div>
 </div>

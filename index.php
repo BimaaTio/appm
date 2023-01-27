@@ -16,6 +16,7 @@ require 'config/functions.php';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" integrity="sha512-YFENbnqHbCRmJt5d+9lHimyEMt8LKSNTMLSaHjvsclnZGICeY/0KYEeiHwD1Ux4Tcao0h60tdcMv+0GljvWyHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
   <style>
     * {
       font-family: 'Poppins', sans-serif;
@@ -26,7 +27,6 @@ require 'config/functions.php';
     }
   </style>
 </head>
-
 <body>
   <!-- Navbars -->
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#6777ef;">
