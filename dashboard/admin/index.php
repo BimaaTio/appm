@@ -84,7 +84,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
               <div class="d-sm-none d-lg-inline-block">Hi,<?= $data['nama'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="?hal=profil" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -224,12 +224,12 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
   <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>s
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/jquery-ui/jquery-ui.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/prism/prism.js"></script>
   <!-- Page Specific JS File -->

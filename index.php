@@ -27,6 +27,7 @@ require 'config/functions.php';
     }
   </style>
 </head>
+
 <body>
   <!-- Navbars -->
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#6777ef;">
@@ -34,9 +35,9 @@ require 'config/functions.php';
       <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
           <!-- hidden spacer to center brand on mobile --></span>
-        <a class="navbar-brand" href="#"> 
+        <a class="navbar-brand" href="#">
           <img src="assets/img/logo.png" alt="Bootstrap" width="58" height="54" class="me-2">
-            Aplikasi Pengaduan Pelaporan Masyarakat </a>
+          Aplikasi Pengaduan Pelaporan Masyarakat </a>
         <div class="w-100 text-right">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
             <span class="navbar-toggler-icon"></span>
