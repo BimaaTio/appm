@@ -104,6 +104,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       <?php else : ?>
         Tidak Ada Data!!
       <?php endif; ?>
+
     </div>
 
     <nav aria-label="Page navigation example">
@@ -127,6 +128,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
         <?php endif; ?>
       </ul>
     </nav>
+    <a href="#" onclick="history.back()" class="btn btn-primary my-3 m-auto">Kembali</a>
   </div>
   <!-- /Konten -->
   <!-- Footer -->

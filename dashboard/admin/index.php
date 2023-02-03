@@ -175,6 +175,9 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
               </li>
             <?php endif; ?>
             <!-- <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li> -->
+            <li class="dropdown">
+              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
+            </li>
           </ul>
         </aside>
       </div>

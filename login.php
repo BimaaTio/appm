@@ -108,12 +108,20 @@ if (isset($_POST['masuk'])) {
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
               <a href="index.php">
-              <img src="assets/img/logo.png" alt="logo" width="100">
+                <img src="assets/img/logo.png" alt="logo" width="100">
               </a>
             </div>
             <?php if (isset($error)) : ?>
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Oops!</strong> Username / Password salah!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['sip'])) : ?>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Hey!</strong> <?= $_GET['sip'] ?>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

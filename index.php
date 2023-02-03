@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'config/functions.php';
+$w = query("SELECT * FROM tb_setting")[0];
 ?>
 <!doctype html>
 <html lang="en">
@@ -8,7 +9,7 @@ require 'config/functions.php';
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>APPM &mdash; Landing</title>
+  <title><?= $w['singkatan'] ?> &mdash; Landing</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +38,7 @@ require 'config/functions.php';
           <!-- hidden spacer to center brand on mobile --></span>
         <a class="navbar-brand" href="#">
           <img src="assets/img/logo.png" alt="Bootstrap" width="58" height="54" class="me-2">
-          Aplikasi Pengaduan Pelaporan Masyarakat </a>
+          <?= $w['nama_web'] ?> </a>
         <div class="w-100 text-right">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
             <span class="navbar-toggler-icon"></span>
