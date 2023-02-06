@@ -334,6 +334,9 @@ function setting($data)
 
   $namaWeb = ucwords(htmlspecialchars($data['web']));
   $logoLama    = $data['logoLama'];
+  $slogan = ucwords(htmlspecialchars($data['slogan']));
+  $singkatan = ucwords(htmlspecialchars(strtoupper($data['singkatan'])));
+  $desk = ucfirst($data['desk']);
   // cek jika tidak ganti logo
   if ($_FILES['logo']['error'] === 4) {
     $logo = $logoLama;
@@ -342,7 +345,7 @@ function setting($data)
     unlink("../../assets/img/foto/" . $logoLama);
   }
 
-  $query = "UPDATE tb_setting SET nama_web = '$namaWeb', logo = '$logo'";
+  $query = "UPDATE tb_setting SET nama_web = '$namaWeb', logo = '$logo', singkatan = '$singkatan', deskripsi = '$desk'";
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
 }

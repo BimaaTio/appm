@@ -26,6 +26,9 @@ if (isset($_POST['set'])) {
 <div class="row">
   <div class="col">
     <div class="card">
+      <div class="card-header">
+        <h5>Terakhir Update : <?= $w['updated_at'] ?></h5>
+      </div>
       <div class="card-body">
         <form method="post" class="needs-validation justify-content-center" enctype="multipart/form-data" novalidate="">
           <div class="card-body">
@@ -39,6 +42,18 @@ if (isset($_POST['set'])) {
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Singkatan</label>
               <div class="col-sm-12 col-md-7">
                 <input type="text" class="form-control" name="singkatan" required>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Slogan</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" name="slogan" required>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
+              <div class="col-sm-12 col-md-7">
+                <textarea class="summernote" style="display: none;" name="desk" required></textarea>
               </div>
             </div>
             <input type="hidden" name="logoLama" value="<?= $setting['logo'] ?>">

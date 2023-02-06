@@ -12,6 +12,8 @@ $t1 = '';
 if (empty($judul)) {
   $judul = 'Dashboard';
 }
+// Data WEB
+$w = query("SELECT * FROM tb_setting")[0];
 // data user
 $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 // Data masyarakat
@@ -34,7 +36,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>APPM &mdash; <?= ucwords($judul) ?></title>
-  <link rel="shortcut icon" href="../../assets/img/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/img/foto/<?= $w['logo'] ?>" type="image/x-icon">
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/fontawesome/css/all.min.css">
@@ -101,7 +103,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
             <a href="../../">Pelaporan Pengaduan</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="../../">APPM</a>
+            <a href="../../"><?= $w['singkatan'] ?></a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -280,7 +282,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
             <label class="col-form-label col-2">Tanggapan</label>
             <div class="col-10">
               <textarea class="summernote" name="tanggapan" cols="65" rows="15"></textarea>
-
             </div>
           </div>
       </div>
