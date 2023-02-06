@@ -1,9 +1,9 @@
 <?php
 if (isset($_POST['profil'])) {
   if (updateProfil($_POST) > 0) {
-    echo "<script>document.location.href='?hal=profil&info=Berhasil Mengubah Data!'</script>";
+    echo "<script>document.location.href='?hal=profil&info=1&msg=Berhasil Mengubah Data!'</script>";
   } else {
-    echo "<script>document.location.href='?hal=profil&bad=Gagal Mengubah Data!'</script>";;
+    echo "<script>document.location.href='?hal=profil&bad=0&msg=Gagal Mengubah Data!'</script>";;
   }
 }
 
@@ -25,6 +25,22 @@ if (isset($_POST['profil'])) {
 </div>
 <div class="row">
   <div class="col">
+    <?php if (isset($_GET['info'])) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Siip!</strong> <?= $_GET['msg'] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['bad'])) : ?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Oops!</strong> <?= $_GET['msg'] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
     <div class="card">
       <form method="post" class="needs-validation justify-content-center" novalidate="">
         <div class="card-body">

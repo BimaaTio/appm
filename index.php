@@ -122,7 +122,7 @@ $w = query("SELECT * FROM tb_setting")[0];
       <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
         <li class="ms-3"><a class="text-muted" href="https://instagram.com/bimatio_"><i class="bi bi-instagram" width="24" height="24"></i></a></li>
         <li class="ms-3"><a class="text-muted" href="https://wa.me/6288802791267"><i class="bi bi-whatsapp" width="24" height="24"></i></a></li>
-        <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook" width="24" height="24"></i></a></li>
+        <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-linkedin" width="24" height="24"></i></a></li>
       </ul>
     </footer>
   </div>
