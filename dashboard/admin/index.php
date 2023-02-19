@@ -12,6 +12,8 @@ $t1 = '';
 if (empty($judul)) {
   $judul = 'Dashboard';
 }
+// Data WEB
+$w = query("SELECT * FROM tb_setting")[0];
 // data user
 $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 // Data masyarakat
@@ -34,7 +36,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>APPM &mdash; <?= ucwords($judul) ?></title>
-  <link rel="shortcut icon" href="../../assets/img/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/img/foto/<?= $w['logo'] ?>" type="image/x-icon">
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/fontawesome/css/all.min.css">
@@ -84,7 +86,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
               <div class="d-sm-none d-lg-inline-block">Hi,<?= $data['nama'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="?hal=profil" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -101,7 +103,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
             <a href="../../">Pelaporan Pengaduan</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="../../">APPM</a>
+            <a href="../../"><?= $w['singkatan'] ?></a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -175,6 +177,9 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
               </li>
             <?php endif; ?>
             <!-- <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li> -->
+            <li class="dropdown">
+              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
+            </li>
           </ul>
         </aside>
       </div>
@@ -224,12 +229,12 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
   <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>s
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/jquery-ui/jquery-ui.min.js"></script>
   <script src="../../assets/template/dist/assets/modules/prism/prism.js"></script>
   <!-- Page Specific JS File -->
@@ -277,7 +282,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
             <label class="col-form-label col-2">Tanggapan</label>
             <div class="col-10">
               <textarea class="summernote" name="tanggapan" cols="65" rows="15"></textarea>
-
             </div>
           </div>
       </div>

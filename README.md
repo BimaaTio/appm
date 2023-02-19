@@ -1,15 +1,12 @@
 # Aplikasi Pelaporan Pengaduan Masyarakat
 
-  ### Created By
-  > Nama : Bima tio rachman
+### Created By
 
+> Nama : Bima tio rachman
 
-  > Kelas : XII RPL
+> Kelas : XII RPL
 
-
-  > Nomor : 10
-
-
+> Nomor : 10
 
 ## UJIKOM RPL TH 2023
 
@@ -49,30 +46,29 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 
 > Start Project : 20/01/2023
 
-> End Project : 27/01/2023
+> End Project : 6/02/2023
 
 # Dokumentasi Sederhana
- 
- akun admin :
- 
- username : admin
- 
- password : 123
- 
+
+akun admin :
+
+username : admin
+
+password : 123
 
 > Landing Page
 
 <img src="assets/dokumentasi/landing-page.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
->Register Page
+> Register Page
 
 <img src="assets/dokumentasi/register.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
-> Login Page 
+> Login Page
 
 <img src="assets/dokumentasi/login.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
-> Dashboard Admin 
+> Dashboard Admin
 
 <img src="assets/dokumentasi/dashboard-admin.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
@@ -85,9 +81,9 @@ APPM atau Aplikasi Pelaporan Pengaduan Masyarakat adalah Aplikasi berbasis Websi
 <img src="assets/dokumentasi/data-akun-masyarakat.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
 > Data Akun Petugas
-   
+
 <img src="assets/dokumentasi/data-akun-petugas.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>
 
-> Form Pengaduan 
+> Form Pengaduan
 
 <img src="assets/dokumentasi/form-pengaduan.png" alt="Landing Page circle logo" style="height: 450px; width:900px;"/>

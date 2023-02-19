@@ -15,22 +15,22 @@
 </div>
 <div class="row">
   <div class="col-12">
-  <?php if(isset($_GET['sip']) == 'berhasil' && isset($_GET['msg']) ) :?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Siip!</strong> <?= $_GET['msg'] ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?php endif;?>
-    <?php if(isset($_GET['bad'])== 'gagal' && isset($_GET['msg'])) :?>
+    <?php if (isset($_GET['sip']) == 'berhasil' && isset($_GET['msg'])) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Siip!</strong> <?= $_GET['msg'] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['bad']) == 'gagal' && isset($_GET['msg'])) : ?>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>Oops!</strong> <?= $_GET['msg'] ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?php endif;?>
+        <strong>Oops!</strong> <?= $_GET['msg'] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
     <h5 class="mb-2">Formulir Laporan Pengaduan</h5>
     <div class="card">
       <div class="card-body">
@@ -45,7 +45,7 @@
           <div class="form-group row mb-4">
             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Isi Laporan</label>
             <div class="col-sm-12 col-md-7">
-              <textarea class="summernote-simple" style="display: none;" name="isi" required></textarea>
+              <textarea class="summernote" style="display: none;" name="isi" required></textarea>
             </div>
           </div>
           <div class="form-group row mb-4">

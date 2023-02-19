@@ -8,8 +8,9 @@
 $(document).ready(function () {
   $('#table-1').DataTable();
   $('#table-2').DataTable({
-      "buttons": ['excel', 'pdf', 'print']
-    }).buttons().container().appendTo('#buton .col-md-6:eq(0)');
+    dom: 'Bfrtip',
+    "buttons": ['excel', 'pdf', 'print', 'colvis']
+  }).buttons().container().appendTo('#buton .col-md-6:eq(0)');
   $('#summernote').summernote();
   $(document).on('click', 'a[data-role=ta]', function () {
     var id = $(this).data('id');

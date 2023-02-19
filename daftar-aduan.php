@@ -6,6 +6,8 @@ if (!isset($_SESSION['aduan'])) {
 }
 require 'config/functions.php';
 
+// data website
+$w = query("SELECT * FROM tb_setting")[0];
 
 // Pagination
 $jmlDataPerHal = 4;
@@ -29,6 +31,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" integrity="sha512-YFENbnqHbCRmJt5d+9lHimyEMt8LKSNTMLSaHjvsclnZGICeY/0KYEeiHwD1Ux4Tcao0h60tdcMv+0GljvWyHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="shortcut icon" href="assets/img/foto/<?= $w['logo'] ?>" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     * {
@@ -48,7 +51,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
           <!-- hidden spacer to center brand on mobile --></span>
-        <a class="navbar-brand" href="#"> Aplikasi Pengaduan Pelaporan Masyarakat </a>
+        <a class="navbar-brand" href="#"><?= $w['nama_web'] ?></a>
         <div class="w-100 text-right">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
             <span class="navbar-toggler-icon"></span>
@@ -62,7 +65,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
           </li>
           <?php if (isset($_SESSION['aduan'])) : ?>
             <li class="nav-item">
-              <a href="#" class="nav-link">Daftar Aduan</a>
+              <a href="#" class="nav-link active">Daftar Aduan</a>
             </li>
           <?php endif; ?>
           <li class="nav-item">
@@ -83,7 +86,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       if (count($data) > 0) :
         foreach ($data as $d) :
       ?>
-          <div class="col-md-4 mb-2 mt-2">
+          <div class="col-md-3 mb-2 mt-2">
             <div class="card">
 
               <div class="card-header"><?= $d['judul_pengaduan'] ?></div>
@@ -104,6 +107,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       <?php else : ?>
         Tidak Ada Data!!
       <?php endif; ?>
+
     </div>
 
     <nav aria-label="Page navigation example">
@@ -127,6 +131,7 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
         <?php endif; ?>
       </ul>
     </nav>
+    <a href="#" onclick="history.back()" class="btn btn-primary my-3 m-auto">Kembali</a>
   </div>
   <!-- /Konten -->
   <!-- Footer -->

@@ -110,6 +110,9 @@ $data = query("SELECT * FROM tb_masyarakat WHERE id_m = $uid")[0];
                 <a href="?hal=form" class="nav-link"><i class="fas fa-file"></i><span>Formulir</span></a>
               </li>
             <?php endif; ?>
+            <li class="dropdown">
+              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
+            </li>
           </ul>
         </aside>
       </div>

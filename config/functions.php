@@ -13,10 +13,9 @@ $name   = 'root';
 $pass   = '';
 $dbname = 'db_appm';
 //Var conn untuk menyambungkan website ke database
-$conn   = mysqli_connect($host,$name,$pass,$dbname);
+$conn   = mysqli_connect($host, $name, $pass, $dbname);
 // debugging jika koneksi errorr
-if(mysqli_error($conn))
-{
+if (mysqli_error($conn)) {
   die("Connection failed: " . mysqli_error($conn));
 }
 //===============================================
@@ -26,8 +25,7 @@ function query($query)
   global $conn;
   $result = mysqli_query($conn, $query);
   $rows = [];
-  while ($row = mysqli_fetch_assoc($result)
-  ) {
+  while ($row = mysqli_fetch_assoc($result)) {
     $rows[] = $row;
   }
   return $rows;
@@ -55,7 +53,8 @@ function randNumb($lenght = 10)
 }
 //==============================================
 //Register User 
-function regUser($data) {
+function regUser($data)
+{
   global $conn;
 
   $uid   = substr(randNumb(), 4);
@@ -66,32 +65,32 @@ function regUser($data) {
   $telp  = formatNomor($data['telp']);
   $level = $data['level'];
   $tgl   = date("d-m-Y H:i:s");
-  
+
   // Pengecekan username sudah ada atau belum
   $cek   = query("SELECT * FROM tb_user WHERE uname = '$uname' ");
-  if($cek){
+  if ($cek) {
     echo
-      "
+    "
       <script>
       alert('Email Sudah ada!, Silahkan Gunakan Email lain')
       </script>
       ";
-      return false;
-  } 
+    return false;
+  }
   // cek jika konfirmasi password tidak sama
-  if($pass != $pass2){
+  if ($pass != $pass2) {
     echo
-      "
+    "
       <script>
       alert('Password Tidak Sesuai!, Silahkan cek Kembali Passwordnya!')
       </script>
       ";
-      return false;
+    return false;
   }
   // Encrypt password yang akan dimasukan kedalam database
   $password = password_hash($pass, PASSWORD_BCRYPT);
   // query insert / memasukan data yang di input ke database
-  mysqli_query($conn,"INSERT INTO tb_user VALUES($uid, '$nama', '$uname', '$password', '$telp', '$level', '$tgl')");
+  mysqli_query($conn, "INSERT INTO tb_user VALUES($uid, '$nama', '$uname', '$password', '$telp', '$level', '$tgl')");
   return mysqli_affected_rows($conn);
 }
 //=======================================================
@@ -171,9 +170,9 @@ function lapor($data)
   $idp = substr(randNumb(), 4);
   $idm = $data['idm'];
   $judul = ucwords(htmlspecialchars($data['judul']));
-  $isi = ucwords(htmlspecialchars($data['isi']));
+  $isi = ucwords($data['isi']);
   $foto = foto();
-  if(!foto()){
+  if (!foto()) {
     return false;
   }
   $status = 'p';
@@ -254,4 +253,99 @@ function foto()
   move_uploaded_file($tmpName, '../../assets/img/foto/' . $namaBaru);
 
   return $namaBaru;
+}
+//========================================================
+//Update Profile
+function updateProfil($data)
+{
+  global $conn;
+
+  $uid      = $data['uid'];
+  $fullName = ucwords(htmlspecialchars($data['fn']));
+  $username = ucwords(htmlspecialchars($data['uname']));
+  $telp     = htmlspecialchars($data['telp']);
+
+  $query    = "UPDATE tb_user SET 
+                nama = '$fullName',
+                uname = '$username',
+                telp  = '$telp'            
+                WHERE uid = $uid";
+
+  mysqli_query($conn, $query);
+  return mysqli_affected_rows($conn);
+}
+//======================================================
+function logo()
+{
+  $namaFile = $_FILES['logo']['name'];
+  $ukuranFile = $_FILES['logo']['size'];
+  $error = $_FILES['logo']['error'];
+  $tmpName = $_FILES['logo']['tmp_name'];
+  //Cek gambar 
+
+  if (
+    $error === 4
+  ) {
+    echo "<script>
+                alert('Pilih gambar terlebih dahulu')
+              </script>";
+    return false;
+  }
+
+  // file type
+  $ekstensiGambarValid = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+  $formatFile = explode('.', $namaFile);
+  $formatFile = strtolower(end($formatFile));
+
+  if (!in_array($formatFile, $ekstensiGambarValid)) {
+    echo "<script>
+                alert('Format File tidak sesuai')
+              </script>";
+    return false;
+  }
+
+  // cek size
+
+  if ($ukuranFile > 3000000) {
+    echo "<script>
+                alert('File size Max 3MB')
+              </script>";
+    return false;
+  }
+
+
+  // lolos cek
+  // generate nama gambar
+
+  $namaBaru = 'logo' . substr(randNumb(), 5);
+  $namaBaru .= '.';
+  $namaBaru .= $formatFile;
+
+
+  move_uploaded_file($tmpName, '../../assets/img/foto/' . $namaBaru);
+
+  return $namaBaru;
+}
+//======================================================
+//Update Tampilan WEB
+function setting($data)
+{
+  global $conn;
+
+  $namaWeb = ucwords(htmlspecialchars($data['web']));
+  $logoLama    = $data['logoLama'];
+  $slogan = ucwords(htmlspecialchars($data['slogan']));
+  $singkatan = ucwords(htmlspecialchars(strtoupper($data['singkatan'])));
+  $desk = ucfirst($data['desk']);
+  // cek jika tidak ganti logo
+  if ($_FILES['logo']['error'] === 4) {
+    $logo = $logoLama;
+  } else {
+    $logo = logo();
+    unlink("../../assets/img/foto/" . $logoLama);
+  }
+
+  $query = "UPDATE tb_setting SET nama_web = '$namaWeb', logo = '$logo', singkatan = '$singkatan', deskripsi = '$desk'";
+  mysqli_query($conn, $query);
+  return mysqli_affected_rows($conn);
 }

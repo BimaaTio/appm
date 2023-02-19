@@ -1,10 +1,10 @@
 <?php
 require 'config/functions.php';
-if(isset($_POST['regis'])){
-  if(regMas($_POST) > 0){
-    header("Location:login.php?info=success");
+if (isset($_POST['regis'])) {
+  if (regMas($_POST) > 0) {
+    header("Location:login.php?sip=Berhasil Membuat akun!");
   } else {
-    header("Location:register.php?info=bad");
+    header("Location:register.php?bad=Gagal Membuat");
   }
 }
 
@@ -87,8 +87,7 @@ if(isset($_POST['regis'])){
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="password" class="d-block">Password</label>
-                      <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                        name="pass" maxlength="16">
+                      <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="pass" maxlength="16">
                       <div id="pwindicator" class="pwindicator">
                         <div class="bar"></div>
                         <div class="label"></div>
