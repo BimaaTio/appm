@@ -62,6 +62,9 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       </div>
       <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar7">
         <ul class="navbar-nav ms-auto flex-nowrap">
+          <li class="nav-item">
+            <a href="index.php" class="nav-link">Home</a>
+          </li>
           <?php if (isset($_SESSION['aduan'])) : ?>
             <li class="nav-item">
               <a href="daftar-aduan.php" class="nav-link active">Daftar Aduan</a>

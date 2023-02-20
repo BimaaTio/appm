@@ -47,6 +47,9 @@ $w = query("SELECT * FROM tb_setting")[0];
       </div>
       <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar7">
         <ul class="navbar-nav ms-auto flex-nowrap">
+          <li class="nav-item">
+            <a href="index.php" class="nav-link active">Home</a>
+          </li>
           <?php if (isset($_SESSION['aduan'])) : ?>
             <li class="nav-item">
               <a href="daftar-aduan.php" class="nav-link">Daftar Aduan</a>
