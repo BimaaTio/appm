@@ -10,7 +10,7 @@ require 'config/functions.php';
 $w = query("SELECT * FROM tb_setting")[0];
 
 // Pagination
-$jmlDataPerHal = 4;
+$jmlDataPerHal = 6;
 $jmlData = count(query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid"));
 $jmlHal  = ceil($jmlData / $jmlDataPerHal);
 $halAktif = (isset($_GET['halaman'])) ? $_GET['halaman'] : 1;
@@ -51,7 +51,9 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
           <!-- hidden spacer to center brand on mobile --></span>
-        <a class="navbar-brand" href="#"><?= $w['nama_web'] ?></a>
+        <a class="navbar-brand" href="#">
+          <img src="assets/img/foto/<?= $w['logo'] ?>" alt="Bootstrap" width="58" height="54" class="me-2">
+          <?= $w['nama_web'] ?> </a>
         <div class="w-100 text-right">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
             <span class="navbar-toggler-icon"></span>
@@ -60,46 +62,65 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       </div>
       <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar7">
         <ul class="navbar-nav ms-auto flex-nowrap">
-          <li class="nav-item">
-            <a href="index.php" class="nav-link">Home</a>
-          </li>
           <?php if (isset($_SESSION['aduan'])) : ?>
             <li class="nav-item">
-              <a href="#" class="nav-link active">Daftar Aduan</a>
+              <a href="daftar-aduan.php" class="nav-link active">Daftar Aduan</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <?php if (isset($_SESSION['logAdmin'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/admin/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['logPetugas'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/petugas/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['logMasyarakat'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/masyarakat/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="dashboard/logout.php">Logout</a></li>
+              </ul>
+            </li>
+          <?php else : ?>
+            <li class="nav-item">
+              <a href="login.php" class="nav-link">Login</a>
             </li>
           <?php endif; ?>
-          <li class="nav-item">
-            <a href="dashboard/masyarakat/logout.php" class="nav-link">Logout</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
-  <!-- /Navbar -->
   <!-- Konten -->
   <div class="container">
     <h1 class="text-center mt-3 mb-3 fw-bold">Daftar Aduan</h1>
     <hr>
 
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
       <?php
       if (count($data) > 0) :
         foreach ($data as $d) :
       ?>
-          <div class="col-md-3 mb-2 mt-2">
-            <div class="card">
 
-              <div class="card-header"><?= $d['judul_pengaduan'] ?></div>
+          <div class="col">
+            <div class="card h-100">
+              <img src="assets/img/foto/<?= $d['foto'] ?>" class="card-img-top" alt="<?= $d['foto'] ?>" />
               <div class="card-body">
-                <img src="assets/img/foto/<?= $d['foto'] ?>" class="img-thumbnail" alt="">
+                <h5 class="card-title"><?= $d['judul_pengaduan'] ?></h5>
+                <p class="card-text">
                 <ul class="list-unstyled mt-2">
                   <li>Isi : <?= $d['isi_laporan'] ?></li>
                   <li>Tanggapan : <?= $d['tanggapan'] ?></li>
                   <li>Yang Menanggapi : <?= $d['nama'] ?></li>
                 </ul>
+                </p>
               </div>
               <div class="card-footer">
-                <p class="muted">Tgl : <?= $d['tgl_tanggapan'] ?></p>
+                <small class="text-muted"><?= $d['tgl_tanggapan'] ?></small>
               </div>
             </div>
           </div>
@@ -110,8 +131,10 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
 
     </div>
 
+
+
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
+      <ul class="pagination justify-content-center mt-5">
         <?php if ($halAktif > 1) : ?>
           <li class="page-item">
             <a class="page-link" href="?halaman=<?= $halAktif - 1 ?>" tabindex="-1" aria-disabled="true">Previous</a>
@@ -150,6 +173,8 @@ $data = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengadua
       </ul>
     </footer>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>

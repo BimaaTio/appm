@@ -51,10 +51,31 @@ $w = query("SELECT * FROM tb_setting")[0];
             <li class="nav-item">
               <a href="daftar-aduan.php" class="nav-link">Daftar Aduan</a>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <?php if (isset($_SESSION['logAdmin'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/admin/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['logPetugas'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/petugas/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['logMasyarakat'])) : ?>
+                  <li><a class='dropdown-item' href='dashboard/masyarakat/?hal='>Dashboard</a></li>
+                <?php endif; ?>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="dashboard/logout.php">Logout</a></li>
+              </ul>
+            </li>
+          <?php else : ?>
+            <li class="nav-item">
+              <a href="login.php" class="nav-link">Login</a>
+            </li>
           <?php endif; ?>
-          <li class="nav-item">
-            <a href="login.php" class="nav-link">Login</a>
-          </li>
         </ul>
       </div>
     </div>
