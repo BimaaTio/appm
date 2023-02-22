@@ -51,32 +51,33 @@ if (isset($_POST['set'])) {
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Website</label>
               <div class="col-sm-12 col-md-7">
-                <input type="text" class="form-control" name="web" required>
+                <input type="text" class="form-control" name="web" value="<?= $w['nama_web'] ?>" required>
               </div>
             </div>
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Singkatan</label>
               <div class="col-sm-12 col-md-7">
-                <input type="text" class="form-control" name="singkatan" required>
+                <input type="text" class="form-control" name="singkatan" value="<?= $w['singkatan'] ?>" required>
               </div>
             </div>
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Slogan</label>
               <div class="col-sm-12 col-md-7">
-                <input type="text" class="form-control" name="slogan" required>
+                <input type="text" class="form-control" name="slogan" value="<?= $w['slogan'] ?>" required>
               </div>
             </div>
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
               <div class="col-sm-12 col-md-7">
-                <textarea class="summernote" style="display: none;" name="desk" required></textarea>
+                <textarea class="summernote" style="display: none;" name="desk" required><?= $w['deskripsi'] ?></textarea>
               </div>
             </div>
-            <input type="hidden" name="logoLama" value="<?= $setting['logo'] ?>">
+            <input type="hidden" name="logoLama" value="<?= $w['logo'] ?>">
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Logo</label>
               <div class="col-sm-12 col-md-7">
                 <div id="image-preview" class="image-preview">
+                  <img src="../../assets/img/<?= $w['logo'] ?>" alt="test" class="image-preview">
                   <label for="image-upload" id="image-label">Pilih Foto</label>
                   <input type="file" id="image-upload" name="logo">
                 </div>

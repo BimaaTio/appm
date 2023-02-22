@@ -262,7 +262,7 @@ function updateProfil($data)
 
   $uid      = $data['uid'];
   $fullName = ucwords(htmlspecialchars($data['fn']));
-  $username = ucwords(htmlspecialchars($data['uname']));
+  $username = htmlspecialchars($data['uname']);
   $telp     = htmlspecialchars($data['telp']);
 
   $query    = "UPDATE tb_user SET 
@@ -345,7 +345,7 @@ function setting($data)
     unlink("../../assets/img/foto/" . $logoLama);
   }
 
-  $query = "UPDATE tb_setting SET nama_web = '$namaWeb', logo = '$logo', singkatan = '$singkatan', deskripsi = '$desk'";
+  $query = "UPDATE tb_setting SET nama_web = '$namaWeb', slogan = '$slogan' , logo = '$logo', singkatan = '$singkatan', deskripsi = '$desk'";
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
 }
