@@ -197,7 +197,7 @@ function tanggapi($data)
   mysqli_query($conn, $query);
 
   //JIka sudah insert ubah status tanggapan menjadi a
-  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'a' WHERE id_p = $idp ");
+  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'proses' WHERE id_p = $idp ");
   return mysqli_affected_rows($conn);
 }
 //========================================================
@@ -347,5 +347,17 @@ function setting($data)
 
   $query = "UPDATE tb_setting SET nama_web = '$namaWeb', slogan = '$slogan' , logo = '$logo', singkatan = '$singkatan', deskripsi = '$desk'";
   mysqli_query($conn, $query);
+  return mysqli_affected_rows($conn);
+}
+
+// ubah Status
+function ubahStat($data)
+{
+  global $conn;
+
+  $id = $data['idp'];
+  $status = $data['status'];
+
+  mysqli_query($conn, "UPDATE tb_pengaduan SET status = '$status' WHERE id_p = $id");
   return mysqli_affected_rows($conn);
 }

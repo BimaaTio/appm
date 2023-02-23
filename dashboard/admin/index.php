@@ -24,7 +24,7 @@ $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id
 $rowLapTunggu = numRows("SELECT * FROM tb_pengaduan WHERE status = 'tunggu' ");
 // Baris laporan dg status proses
 $rowLapProses = numRows("SELECT * FROM tb_pengaduan WHERE status = 'proses' ");
-$rowLapSetuju = numRows("SELECT * FROM tb_pengaduan WHERE status = 'selesai' ");
+$rowLapSelesai = numRows("SELECT * FROM tb_pengaduan WHERE status = 'selesai' ");
 $rowLapTolak = numRows("SELECT * FROM tb_pengaduan WHERE status = 'ditolak' ");
 // Akun masyarakat yang terdaftar
 $rowMas  = numRows("SELECT * FROM tb_masyarakat");
@@ -45,7 +45,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
 
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="../../assets/template/dist/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <!-- <link rel="stylesheet" href="../../assets/template/dist/assets/modules/jqvmap/dist/jqvmap.min.css"> -->
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/summernote/summernote-bs4.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="../../assets/template/dist/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
@@ -176,9 +176,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
               </li>
             <?php endif; ?>
             <!-- <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li> -->
-            <li class="dropdown">
-              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
-            </li>
           </ul>
         </aside>
       </div>
@@ -243,6 +240,26 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
   <!-- Template JS File -->
   <script src="../../assets/template/dist/assets/js/scripts.js"></script>
   <script src="../../assets/template/dist/assets/js/custom.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#table-lap').DataTable({
+        dom: 'Bfrtip',
+        "buttons": ['excel', 'pdf', 'print']
+      }).buttons().container().appendTo('#table-lap_wrapper .col-md-6:eq(0)');
+      $(document).on('click', 'a[data-role=ubahStatus]', function() {
+        var id = $(this).data('id');
+        var judul = $.trim($('#' + id).children('td[data-target=judul]').text());
+        var pengadu = $.trim($('#' + id).children('td[data-target=pengadu]').text());
+        var status = $.trim($('#' + id).children('td[data-target=stat]').text());
+
+        $('#idP').val(id);
+        $('#jLap').val(judul);
+        $('#adu').val(pengadu);
+        $("#upStat").val(status);
+        $('#status').modal('toggle');
+      });
+    });
+  </script>
 </body>
 
 </html>
@@ -287,6 +304,51 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
       <div class="modal-footer bg-whitesmoke br">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" name="submit" class="btn btn-primary">Tanggapi</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal Ubah Status -->
+<div class="modal fade" tabindex="-1" role="dialog" id="status">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ubah Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" class="justify-content-center">
+          <input name="idp" type="hidden" id="idP">
+          <input name="uid" type="hidden" value="<?= $uid ?>">
+          <div class="form-group row mb-4">
+            <label class="col-form-label col-2">Judul</label>
+            <div class="col-10">
+              <input id="jLap" type="text" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label col-2">Nama Pengadu</label>
+            <div class="col-10">
+              <input id="adu" type="text" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label col-2">Status</label>
+            <div class="col-10">
+              <!-- <input type="text" id="upStat"> -->
+              <select id="upStat" name="status" class="form-control">
+                <option value="tunggu">Menunggu</option>
+                <option value="proses">Diproses</option>
+              </select>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer bg-whitesmoke br">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="ubahStat" class="btn btn-primary">Tanggapi</button>
       </div>
       </form>
     </div>
@@ -460,6 +522,24 @@ if (isset($_POST['regMas'])) {
         document.location.href = '?hal=masyarakat&bad=gagal&msg=Gagal Menambah User';
     </script>
     ";
+  }
+}
+
+if (isset($_POST['ubahStat'])) {
+  if (ubahStat($_POST) > 0) {
+    echo
+    "
+    <script>
+        document.location.href = '?hal=laporan&sip=berhasil&msg=Berhasil Mengubah Status';
+    </script>
+    ";
+  } else {
+    echo
+    "
+    <script>
+        document.location.href = '?hal=laporan&bad=gagal&msg=Gagal Mengubah Status';
+    </script>
+    " . mysqli_error($conn);
   }
 }
 ?>
