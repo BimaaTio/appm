@@ -21,7 +21,6 @@ $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id
 // Baris laporan dg status Pending
 $rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
 // Baris laporan dg status Accept
-$rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
 // Akun masyarakat yang terdaftar
 $rowMas  = numRows("SELECT * FROM tb_masyarakat");
 // Akun petugas Terdaftar

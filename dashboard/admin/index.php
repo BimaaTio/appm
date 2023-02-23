@@ -20,14 +20,16 @@ $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 $dataMasyarakat = query("SELECT * FROM tb_masyarakat");
 // Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
 $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
-// Baris laporan dg status Pending
-$rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
-// Baris laporan dg status Accept
-$rowLapA = numRows("SELECT * FROM tb_pengaduan WHERE status = 'a' ");
+// Baris laporan dg status tunggu
+$rowLapTunggu = numRows("SELECT * FROM tb_pengaduan WHERE status = 'tunggu' ");
+// Baris laporan dg status proses
+$rowLapProses = numRows("SELECT * FROM tb_pengaduan WHERE status = 'proses' ");
+$rowLapSetuju = numRows("SELECT * FROM tb_pengaduan WHERE status = 'selesai' ");
+$rowLapTolak = numRows("SELECT * FROM tb_pengaduan WHERE status = 'ditolak' ");
 // Akun masyarakat yang terdaftar
 $rowMas  = numRows("SELECT * FROM tb_masyarakat");
 // Akun petugas Terdaftar
-$rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
+$rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,9 +118,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
                 <a href="?hal=" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
             <?php endif; ?>
-
-
-
             <?php if ($judul === 'laporan' or 'masyarakat' or 'petugas') : ?>
               <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i> <span>Data</span></a>

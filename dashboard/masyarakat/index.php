@@ -13,6 +13,7 @@ if (empty($judul)) {
   $judul = 'Dashboard';
 }
 $data = query("SELECT * FROM tb_masyarakat WHERE id_m = $uid")[0];
+$dataLap = query("SELECT * FROM tb_pengaduan,tb_masyarakat WHERE tb_pengaduan.id_m = '$uid' AND tb_masyarakat.id_m = '$uid';");
 ?>
 <!DOCTYPE html>
 <html lang="en">
