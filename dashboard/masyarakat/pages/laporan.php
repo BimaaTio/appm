@@ -79,6 +79,9 @@
                     <a href="?hal=edit-laporan&idl=<?= $dl['id_p'] ?>" title="Edit Laporan" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                     <a href="hapus.php?hp=<?= $dl['id_p'] ?>" title="Hapus Laporan" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                   <?php endif; ?>
+                  <?php if ($dl['status'] === 'ditolak') : ?>
+                    <a href="hapus.php?hp=<?= $dl['id_p'] ?>" title="Hapus Laporan" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                  <?php endif; ?>
                 </td>
               </tr>
             <?php endforeach; ?>
