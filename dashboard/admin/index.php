@@ -19,7 +19,20 @@ $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 // Data masyarakat
 $dataMasyarakat = query("SELECT * FROM tb_masyarakat");
 // Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
-$dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
+$dataLap = query("SELECT 
+                  tb_masyarakat.*, 
+                  tb_pengaduan.*, 
+                  CASE 
+                    WHEN tb_pengaduan.status = 'tunggu' THEN 'tunggu' 
+                    WHEN tb_pengaduan.status = 'proses' THEN 'proses' 
+                    WHEN tb_pengaduan.status = 'selesai' THEN 'selesai' 
+                    ELSE 'unknown' 
+                  END AS status_pengaduan 
+                  FROM 
+                  tb_masyarakat, tb_pengaduan 
+                  WHERE 
+                  tb_pengaduan.id_m = tb_masyarakat.id_m 
+                  AND tb_pengaduan.status IN ('tunggu', 'proses', 'selesai');");
 // Baris laporan dg status tunggu
 $rowLapTunggu = numRows("SELECT * FROM tb_pengaduan WHERE status = 'tunggu' ");
 // Baris laporan dg status proses
@@ -248,11 +261,14 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
       }).buttons().container().appendTo('#table-lap_wrapper .col-md-6:eq(0)');
       $(document).on('click', 'a[data-role=ubahStatus]', function() {
         var id = $(this).data('id');
+        var idm = $('#' + id).children('#masyarakat').attr('data-id');
         var judul = $.trim($('#' + id).children('td[data-target=judul]').text());
         var pengadu = $.trim($('#' + id).children('td[data-target=pengadu]').text());
         var status = $.trim($('#' + id).children('td[data-target=stat]').text());
 
+        console.log(idm);
         $('#idP').val(id);
+        $('#idm').val(idm);
         $('#jLap').val(judul);
         $('#adu').val(pengadu);
         $("#upStat").val(status);
@@ -263,8 +279,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
 </body>
 
 </html>
-
-
 
 <!-- Semua Modal Popup ada disini -->
 
@@ -323,6 +337,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
         <form action="" method="post" class="justify-content-center">
           <input name="idp" type="hidden" id="idP">
           <input name="uid" type="hidden" value="<?= $uid ?>">
+          <input type="hidden" name="idm" id="idm">
           <div class="form-group row mb-4">
             <label class="col-form-label col-2">Judul</label>
             <div class="col-10">
@@ -342,6 +357,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'petugas' ")
               <select id="upStat" name="status" class="form-control">
                 <option value="tunggu">Menunggu</option>
                 <option value="proses">Diproses</option>
+                <option value="ditolak">Ditolak</option>
               </select>
             </div>
           </div>

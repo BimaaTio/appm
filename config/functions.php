@@ -175,7 +175,7 @@ function lapor($data)
   if (!foto()) {
     return false;
   }
-  $status = 'p';
+  $status = 'tunggu';
 
   // query insert ke database
   mysqli_query($conn, "INSERT INTO tb_pengaduan VALUES($idp,$idm,CURDATE(),'$judul','$isi','$foto','$status')");
@@ -356,8 +356,54 @@ function ubahStat($data)
   global $conn;
 
   $id = $data['idp'];
+  $uid = $data['uid'];
+  $idm = $data['idm'];
+  $idt = substr(randNumb(), 4);
+  $isi  = 'Laporan Sedang Ditinjau oleh Petugas';
   $status = $data['status'];
-
   mysqli_query($conn, "UPDATE tb_pengaduan SET status = '$status' WHERE id_p = $id");
+  mysqli_query($conn, "INSERT INTO tb_tanggapan VALUES('$idt','$id','$idm',CURDATE(),'$isi','$uid')");
+  return mysqli_affected_rows($conn);
+}
+
+
+function editLap($data)
+{
+  global $conn;
+
+  $idp = $data['idp'];
+  $judul = ucwords(htmlspecialchars($data['judul']));
+  $isi = ucwords($data['isi']);
+  $fotoLama = $data['fotoLama'];
+
+  if ($_FILES['foto']['error'] === 4) {
+    $foto = $fotoLama;
+  } else {
+    $foto = foto();
+    unlink("../../assets/img/foto/" . $fotoLama);
+  }
+
+  $query = "UPDATE tb_pengaduan SET 
+            judul_pengaduan = '$judul',
+            isi_laporan     = '$isi',
+            foto            = '$foto'
+            WHERE id_p = $idp
+    ";
+  mysqli_query($conn, $query);
+  return mysqli_affected_rows($conn);
+}
+
+function editTanggapan($data)
+{
+  global $conn;
+  $idt = $data['idt'];
+  $idp = $data['idp'];
+  $isi = ucwords(stripslashes($data['tanggapan']));
+
+  $query = "UPDATE tb_tanggapan SET
+            tanggapan = '$isi' 
+            WHERE id_p = $idp";
+  mysqli_query($conn, $query);
+  mysqli_query($conn, "UPDATE tb_pengaduan SET status = 'selesai' WHERE id_p = $idp ");
   return mysqli_affected_rows($conn);
 }

@@ -14,57 +14,48 @@
   </div>
 </div>
 <div class="row">
-  <?php
-  if (isset($_GET['info']) && isset($_GET['msg'])) : ?>
-    <?php if ($_GET['info'] == 'berhasil') : ?>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <div class="col-12">
+    <?php if (isset($_GET['sip']) == 'berhasil' && isset($_GET['msg'])) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Siip!</strong> <?= $_GET['msg'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
     <?php endif; ?>
-  <?php endif; ?>
-  <div class="col-12">
+    <?php if (isset($_GET['bad']) == 'gagal' && isset($_GET['msg'])) : ?>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Oops!</strong> <?= $_GET['msg'] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif; ?>
     <h5 class="mb-2">Laporan Pengaduan</h5>
     <div class="card">
-      <div class="card-header">
-        <form action="" method="post" class="form-inline">
-          <input type="date" name="start" class="mr-2 form-control">
-          <input type="date" name="end" class="ml-2 form-control">
-          <button type="submit" name="filterLap" class="btn btn-info ml-3">Filter</button>
-        </form>
-      </div>
       <div class="card-body">
 
         <div class="table-responsive">
-          <table class="table table-bordered table-striped" id="table-1">
+          <table class="table table-bordered table-striped" id="table-lap">
             <thead>
               <tr>
-                <th class="text-center">
+                <th width="1%" class="text-center">
                   #
                 </th>
-                <th>Nama Pengadu</th>
+                <th width="15%">Nama Pengadu</th>
                 <th>Judul Masalah</th>
                 <th>Isi yg diajukan</th>
                 <th>Foto</th>
-                <th>Tgl</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th width="10%">Tgl</th>
+                <th width="6%">Status</th>
+                <th width="15%">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php $i = 1;
-              if (isset($_POST['filterLap'])) {
-                $start = $_POST['start'];
-                $end   = $_POST['end'];
-                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan,tb_tanggapan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_pengaduan.tgl_pengaduan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
-              } else {
-                $dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
-              }
               foreach ($dataLap as $dl) : ?>
-                <tr class="" id="<?= $dl['id_p'] ?>">
-                  <td>
+                <tr id="<?= $dl['id_p'] ?>">
+                  <td class="coba" id="masyarakat" data-id="<?= $dl['id_p'] ?>">
                     <?= $i++ ?>
                   </td>
                   <td data-target="pengadu"><?= $dl['nama'] ?></td>
@@ -75,80 +66,24 @@
                     <?= $dl['isi_laporan'] ?>
                   </td>
                   <td>
-                    <img alt="<?= $dl['foto'] ?>" src="../../assets/img/foto/<?= $dl['foto'] ?>" class="img-thumbnail" width="150" data-toggle="tooltip" title="<?= $dl['judul_pengaduan'] ?>">
+                    <img alt="<?= $dl['foto'] ?>" src="../../assets/img/foto/<?= $dl['foto'] ?>" width="150" data-toggle="tooltip" title="<?= $dl['judul_pengaduan'] ?>">
                   </td>
                   <td><?= $dl['tgl_pengaduan'] ?></td>
-                  <td>
-                    <?php if ($dl['status'] === 'p') : ?>
-                      <div class="badge badge-warning shadow-warning">Pending</div>
+                  <td data-target="stat">
+                    <?php if ($dl['status'] === 'tunggu') : ?>
+                      <span class="badge badge-warning shadow-warning">tunggu</span>
                     <?php endif; ?>
-                    <?php if ($dl['status'] === 'a') : ?>
-                      <div class="badge badge-success shadow-success">Accept</div>
+                    <?php if ($dl['status'] === 'proses') : ?>
+                      <div class="badge badge-info shadow-info">proses</div>
+                    <?php endif; ?>
+                    <?php if ($dl['status'] === 'selesai') : ?>
+                      <div class="badge badge-success shadow-success">selesai</div>
                     <?php endif; ?>
                   </td>
                   <td>
-                    <?php if ($dl['status'] !== 'a') : ?>
-                      <a href="#" data-role="ta" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
-
-                      <a href="hapus.php?hp=<?= $dl['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
-                  </td>
-                <?php endif ?>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Table Laporan yanf sudah ditanggapi -->
-
-<div class="row mt-5">
-  <div class="col-12">
-    <h5 class="mb-2">Laporan Yang Sudah Ditanggapi</h5>
-    <div class="card">
-      <div class="card-header">
-        <form action="" method="post" class="form-inline">
-          <input type="date" name="start" class="mr-2 form-control">
-          <input type="date" name="end" class="ml-2 form-control">
-          <button type="submit" name="filterTang" class="btn btn-info ml-3">Filter</button>
-        </form>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive" id="">
-          <table class="table table-bordered table-striped" id="table-2">
-            <thead>
-              <th>#</th>
-              <th>Nama Petugas</th>
-              <th>Judul Pengaduan</th>
-              <th>Tgl Tanggapan</th>
-              <th>Isi Tanggapan</th>
-              <th></th>
-            </thead>
-            <tbody>
-              <?php
-              if (isset($_POST['filterTang'])) {
-                $start = $_POST['start'];
-                $end   = $_POST['end'];
-                $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid AND tb_tanggapan.tgl_tanggapan BETWEEN '$start' AND DATE_ADD('$end', INTERVAL 1 DAY)");
-              } else {
-                $tanggapan = query("SELECT * FROM tb_pengaduan,tb_tanggapan,tb_user WHERE tb_pengaduan.id_p = tb_tanggapan.id_p AND tb_tanggapan.uid = tb_user.uid");
-              }
-              $n = 1;
-              foreach ($tanggapan as $t) :
-              ?>
-                <tr <?= $t['id_t'] ?>>
-                  <td><?= $n++ ?></td>
-                  <td><?= $t['nama'] ?></td>
-                  <td><?= $t['judul_pengaduan'] ?></td>
-                  <td><?= $t['tgl_tanggapan'] ?></td>
-                  <td><?= $t['tanggapan'] ?></td>
-                  <td>
-                    <a href="hapus.php?ht=<?= $t['id_t'] ?>&idp=<?= $t['id_p'] ?>" id="hapus" class="btn btn-sm btn-danger">Hapus</a>
+                    <?php if ($dl['status'] == 'proses') : ?>
+                      <a href="#" data-role="editTanggapan" data-id="<?= $dl['id_p'] ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#tanggapi">Tanggapi</a>
+                    <?php endif; ?>
                   </td>
                 </tr>
               <?php endforeach; ?>

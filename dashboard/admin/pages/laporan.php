@@ -48,14 +48,15 @@
                 <th>Foto</th>
                 <th width="10%">Tgl</th>
                 <th width="6%">Status</th>
-                <th>Action</th>
+                <th width="15%">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php $i = 1;
               foreach ($dataLap as $dl) : ?>
-                <tr class="" id="<?= $dl['id_p'] ?>">
-                  <td>
+                <?= $dl['id_m'] ?>
+                <tr id="<?= $dl['id_p'] ?>">
+                  <td class="coba" id="masyarakat" data-id="<?= $dl['id_m'] ?>">
                     <?= $i++ ?>
                   </td>
                   <td data-target="pengadu"><?= $dl['nama'] ?></td>

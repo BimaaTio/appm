@@ -34,7 +34,7 @@
     <?php endif; ?>
     <div class="card">
       <div class="card-header">
-        <a href="?hal=formulir" class="btn btn-success shadow-success">Buat Laporan</a>
+        <a href="?hal=form" class="btn btn-success shadow-success">Buat Laporan</a>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-reponsive table-stripped" id="table-1">
@@ -44,6 +44,7 @@
               <th>JUDUL LAPORAN</th>
               <th>ISI LAPORAN</th>
               <th>FOTO</th>
+              <th>TANGGAPAN</th>
               <th>STATUS</th>
               <th>AKSI</th>
             </tr>
@@ -58,11 +59,10 @@
                 <td>
                   <img alt="<?= $dl['foto'] ?>" src="../../assets/img/foto/<?= $dl['foto'] ?>" width="150" data-toggle="tooltip" title="<?= $dl['judul_pengaduan'] ?>">
                 </td>
+                <td><?= $dl['tanggapan'] ?></td>
                 <td>
                   <?php if ($dl['status'] === 'tunggu') : ?>
-                    <span class="dropdown">
-                      <btn class="dropdown-toggle badge badge-warning shadow-warning">Menunggu</btn>
-                    </span>
+                    <span class=" badge badge-warning shadow-warning">Menunggu</span>
                   <?php endif; ?>
                   <?php if ($dl['status'] === 'proses') : ?>
                     <div class="badge badge-info shadow-info">Diproses</div>
@@ -74,7 +74,12 @@
                     <div class="badge badge-danger shadow-danger">Ditolak</div>
                   <?php endif; ?>
                 </td>
-                <td></td>
+                <td>
+                  <?php if ($dl['status'] === 'tunggu') : ?>
+                    <a href="?hal=edit-laporan&idl=<?= $dl['id_p'] ?>" title="Edit Laporan" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                    <a href="hapus.php?hp=<?= $dl['id_p'] ?>" title="Hapus Laporan" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                  <?php endif; ?>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>

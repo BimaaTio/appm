@@ -1,5 +1,6 @@
 <?php
 require 'config/functions.php';
+$w = query("SELECT * FROM tb_setting")[0];
 if (isset($_POST['regis'])) {
   if (regMas($_POST) > 0) {
     header("Location:login.php?sip=Berhasil Membuat akun!");
@@ -50,7 +51,7 @@ if (isset($_POST['regis'])) {
         <div class="row">
           <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
             <div class="login-brand">
-              <img src="assets/img/logo.png" alt="logo" width="100">
+              <img src="assets/img/foto/<?= $w['logo'] ?>" alt="logo" width="100">
             </div>
 
             <div class="card card-primary">

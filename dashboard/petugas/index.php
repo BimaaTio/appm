@@ -17,9 +17,12 @@ $data = query("SELECT * FROM tb_user WHERE uid = $uid")[0];
 // Data masyarakat
 $dataMasyarakat = query("SELECT * FROM tb_masyarakat");
 // Data Laporan Beserta nama pelapor tb_masyarakat & tb_pengaduan 
-$dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m");
+$dataLap = query("SELECT * FROM tb_masyarakat,tb_pengaduan WHERE tb_pengaduan.id_m = tb_masyarakat.id_m AND tb_pengaduan.status = 'proses' ");
 // Baris laporan dg status Pending
-$rowLapP = numRows("SELECT * FROM tb_pengaduan WHERE status = 'p' ");
+$rowLapTunggu = numRows("SELECT * FROM tb_pengaduan WHERE status = 'tunggu' ");
+// Baris laporan dg status proses
+$rowLapProses = numRows("SELECT * FROM tb_pengaduan WHERE status = 'proses' ");
+$rowLapSelesai = numRows("SELECT * FROM tb_pengaduan WHERE status = 'selesai' ");
 // Baris laporan dg status Accept
 // Akun masyarakat yang terdaftar
 $rowMas  = numRows("SELECT * FROM tb_masyarakat");
@@ -122,9 +125,6 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
                 <a href="?hal=laporan" class="nav-link"><i class="fas fa-file"></i><span>Laporan</span></a>
               </li>
             <?php endif; ?>
-            <li class="dropdown">
-              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
-            </li>
           </ul>
         </aside>
       </div>
@@ -189,6 +189,30 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
   <!-- Template JS File -->
   <script src="../../assets/template/dist/assets/js/scripts.js"></script>
   <script src="../../assets/template/dist/assets/js/custom.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#table-lap').DataTable({
+        dom: 'Bfrtip',
+        "buttons": ['excel', 'pdf', 'print']
+      }).buttons().container().appendTo('#table-lap_wrapper .col-md-6:eq(0)');
+
+      $(document).on('click', 'a[data-role=editTanggapan]', function() {
+        var id = $(this).data('id');
+        var idt = $('#' + id).children('#masyarakat').attr('data-id');
+        var judul = $.trim($('#' + id).children('td[data-target=judul]').text());
+        var pengadu = $.trim($('#' + id).children('td[data-target=pengadu]').text());
+
+        console.log(idt);
+
+        $('#id_p').val(id)
+        $('#idt').val(idt);
+        $('#judulLap').val(judul);
+        $('#pengadu').val(pengadu);
+        $('#tanggapi').modal('toggle');
+
+      });
+    });
+  </script>
 </body>
 
 </html>
@@ -209,6 +233,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
       </div>
       <div class="modal-body">
         <form action="" method="post" class="justify-content-center">
+          <input type="hidden" name="idt" id="idt">
           <input name="idp" type="hidden" id="id_p">
           <input name="uid" type="hidden" value="<?= $uid ?>">
           <div class="form-group row mb-4">
@@ -364,7 +389,7 @@ $rowPet  = numRows("SELECT * FROM tb_user WHERE level = 'p' ")
 <?php
 // data tanggapan
 if (isset($_POST['submit']))
-  if (tanggapi($_POST) > 0) {
+  if (editTanggapan($_POST) > 0) {
     echo
     "
       <script>document.location.href='?hal=laporan&sip=berhasil&msg=Berhasil Menanggapi'</script>

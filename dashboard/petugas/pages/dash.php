@@ -16,15 +16,15 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-12">
     <div class="card card-statistic-2">
-      <div class="card-icon shadow-warning bg-warning">
+      <div class="card-icon shadow-info bg-info">
         <i class="fas fa-file"></i>
       </div>
       <div class="card-wrap">
         <div class="card-header">
-          <h4>Total Pengaduan (Pending)</h4>
+          <h4>Data Laporan (Diproses)</h4>
         </div>
         <div class="card-body">
-          <?= $rowLapP ?>
+          <?= $rowLapProses ?>
         </div>
       </div>
     </div>
@@ -36,10 +36,10 @@
       </div>
       <div class="card-wrap">
         <div class="card-header">
-          <h4>Total Yang Sudah Ditanggapi</h4>
+          <h4>Total Yang Sudah Selesai</h4>
         </div>
         <div class="card-body">
-          <?= $rowLapA ?>
+          <?= $rowLapSelesai ?>
         </div>
       </div>
     </div>

@@ -13,7 +13,12 @@ if (empty($judul)) {
   $judul = 'Dashboard';
 }
 $data = query("SELECT * FROM tb_masyarakat WHERE id_m = $uid")[0];
-$dataLap = query("SELECT * FROM tb_pengaduan,tb_masyarakat WHERE tb_pengaduan.id_m = '$uid' AND tb_masyarakat.id_m = '$uid';");
+$dataLap = query("SELECT tb_pengaduan.*, tb_tanggapan.tgl_tanggapan, tb_tanggapan.tanggapan, tb_masyarakat.nik, tb_masyarakat.nama, tb_masyarakat.telp
+FROM tb_pengaduan
+LEFT JOIN tb_tanggapan ON tb_pengaduan.id_p = tb_tanggapan.id_p
+LEFT JOIN tb_masyarakat ON tb_pengaduan.id_m = tb_masyarakat.id_m
+WHERE tb_masyarakat.id_m = $uid
+");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +117,7 @@ $dataLap = query("SELECT * FROM tb_pengaduan,tb_masyarakat WHERE tb_pengaduan.id
               </li>
             <?php endif; ?>
             <li class="dropdown">
-              <a href="../../daftar-aduan.php" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
+              <a href="?hal=laporan-saya" class="nav-link active"><i class="fas fa-file"></i><span>Cek Pengaduan</span></a>
             </li>
           </ul>
         </aside>
